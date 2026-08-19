@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Infrastructure Lab — Your Pathway (Checklist)</title>
+<style>
+  :root{--ink:#1a1d24;--soft:#3d4453;--muted:#6b7280;--line:#dfe3e8;--blue:#1f5f8b;--teal:#0e7a63;--purple:#7a4bbd;--cap:#153f5c;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:#f4f5f6;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.45;}
+  .sheet{max-width:8.5in;margin:16px auto;background:#fff;padding:0.55in 0.6in;box-shadow:0 1px 6px rgba(0,0,0,.1);}
+  .noprint{max-width:8.5in;margin:12px auto 0;text-align:right;}
+  button{font:inherit;font-weight:700;font-size:13px;background:var(--blue);color:#fff;border:none;border-radius:8px;padding:8px 16px;cursor:pointer;}
+  .kicker{text-transform:uppercase;letter-spacing:2px;font-size:10.5px;font-weight:800;color:var(--blue);margin:0 0 4px;}
+  h1{font-size:25px;margin:0 0 4px;font-weight:800;letter-spacing:-0.4px;}
+  .sub{color:var(--soft);font-size:13.5px;margin:0 0 14px;}
+  .name{border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:12px;color:var(--muted);font-size:12.5px;}
+  h2{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin:16px 0 8px;font-weight:800;}
+  .row{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px solid #eef1f3;}
+  .row:last-child{border-bottom:none;}
+  .box{flex:0 0 auto;width:16px;height:16px;border:2px solid var(--blue);border-radius:4px;margin-top:2px;}
+  .fnd .box{border-color:var(--teal);}
+  .fnd2 .box{border-color:var(--purple);}
+  .cap .box{border-color:var(--cap);}
+  .n{flex:0 0 auto;width:22px;font-weight:800;color:var(--blue);}
+  .cap .n{color:var(--cap);}
+  .body{flex:1;}
+  .t{font-weight:750;font-size:14.5px;}
+  .t .tag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:middle;}
+  .tag.f1{background:#e6f3ef;color:var(--teal);}
+  .tag.f2{background:#f0eaf8;color:var(--purple);}
+  .d{color:var(--soft);font-size:13px;}
+  .d b{color:var(--ink);font-weight:700;}
+  .foot{margin-top:16px;border-top:1px solid var(--line);padding-top:8px;color:var(--muted);font-size:11px;}
+  @media print{
+    .noprint{display:none !important;}
+    body{background:#fff;font-size:11pt;}
+    .sheet{box-shadow:none;margin:0;max-width:none;padding:0;}
+    .row{break-inside:avoid;}
+    h2{break-after:avoid;}
+    a{color:#000;}
+  }
+  @page{size:letter;margin:0.5in;}
+</style>
+</head>
+<body>
+<div class="noprint" style="display:flex;justify-content:space-between;align-items:center;"><a href="index.html" style="font-weight:700;font-size:13px;color:#1f5f8b;text-decoration:none;">&larr; Hub</a><button onclick="window.print()">Print / Save as PDF</button></div>
+<div class="sheet">
+  <p class="kicker">South Fayette Foundry · AI Infrastructure Lab</p>
+  <h1>Your Pathway</h1>
+  <p class="sub">Run open AI models on real hardware, serve them, network machines together, and build on top. Check each box when you can <b>show your evidence</b> — not just when it "kind of works."</p>
+  <p class="name">Name: ________________________________   ·   Started: __________   ·   Repo: ________________________________</p>
+
+  <h2>Start here — the two foundations (do first, use throughout)</h2>
+  <div class="row fnd"><div class="box"></div><div class="body"><div class="t">The Workbench<span class="tag f1">Foundation</span></div><div class="d"><b>Show:</b> a repo with a branch, a README, a clear commit, and an opened pull request.</div></div></div>
+  <div class="row fnd2"><div class="box"></div><div class="body"><div class="t">Build in the Open<span class="tag f2">Foundation</span></div><div class="d"><b>Show:</b> your documentation folder with the templates + a first Decision Log entry (the problem &amp; who it's for).</div></div></div>
+
+  <h2>The path — seven modules</h2>
+  <div class="row"><div class="n">0</div><div class="body"><div class="t">On-ramp</div><div class="d"><b>Show:</b> explain an open model in plain English; summarize five model cards (size + license).</div></div></div>
+  <div class="row"><div class="n">1</div><div class="body"><div class="t">Run</div><div class="d"><b>Show:</b> a model answering in the terminal, and a Python script hitting the local API.</div></div></div>
+  <div class="row"><div class="n">2</div><div class="body"><div class="t">Serve</div><div class="d"><b>Show:</b> your model answering a request from <i>another machine</i>; the service running in Docker.</div></div></div>
+  <div class="row"><div class="n">3</div><div class="body"><div class="t">Network</div><div class="d"><b>Show:</b> one gateway URL that keeps answering when a node goes offline; a write-up of your model-splitting experiment.</div></div></div>
+  <div class="row"><div class="n">4</div><div class="body"><div class="t">Extend — MCP</div><div class="d"><b>Show:</b> your own MCP tool being called; a log of where a small model called it reliably vs not.</div></div></div>
+  <div class="row"><div class="n">5</div><div class="body"><div class="t">Agents &amp; RAG</div><div class="d"><b>Show:</b> a "chat with my documents" that cites which document each answer came from.</div></div></div>
+  <div class="row cap"><div class="n">6</div><div class="body"><div class="t">Build &amp; Capstone</div><div class="d"><b>Show:</b> a hosted, working app across the full stack + your documentation portfolio (README, design doc, ADRs, log, retrospective).</div></div></div>
+
+  <h2>Aim for a credential</h2>
+  <div class="row cap"><div class="box"></div><div class="body"><div class="t">Earn at least one certification</div><div class="d">Start with the free/cheap ones (GitHub Foundations — free for students; PCEP — from $69). See the <b>Certifications</b> sheet for the full list, costs, and exams. Your capstone portfolio is your strongest credential of all.</div></div></div>
+
+  <p class="foot">South Fayette Foundry · AI Infrastructure Lab — Your Pathway · v1. Keep this with your work. Every checkbox is a piece of evidence you can point to.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Infrastructure Lab — Student Modules (Start Here)</title>
+<style>
+  :root{
+    --ink:#1a1d24;--ink-soft:#3d4453;--muted:#6b7280;--line:#e4e7ec;
+    --bg:#fbfbfa;--card:#ffffff;--accent:#1f5f8b;--accent-soft:#eaf2f8;
+    --warn:#8a5a00;--warn-soft:#fff6e6;--good:#2f6f4f;--good-soft:#e9f4ee;--radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:19px;line-height:1.65;letter-spacing:0.1px;}
+  .wrap{max-width:820px;margin:0 auto;padding:0 22px 120px;}
+  header.top{max-width:820px;margin:0 auto;padding:64px 22px 20px;}
+  .kicker{text-transform:uppercase;letter-spacing:2.5px;font-size:13px;font-weight:700;color:var(--accent);margin:0 0 14px;}
+  h1{font-size:41px;line-height:1.12;margin:0 0 18px;font-weight:800;letter-spacing:-0.5px;}
+  .lede{font-size:21px;line-height:1.55;color:var(--ink-soft);margin:0;max-width:46ch;}
+  .meta{color:var(--muted);font-size:15px;margin-top:26px;border-top:1px solid var(--line);padding-top:18px;}
+  h2{font-size:29px;line-height:1.2;margin:60px 0 6px;font-weight:800;letter-spacing:-0.3px;}
+  h3{font-size:20px;margin:30px 0 6px;font-weight:750;}
+  h4{font-size:15px;margin:22px 0 6px;font-weight:800;text-transform:uppercase;letter-spacing:1.1px;color:var(--muted);}
+  p{margin:14px 0;}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(31,95,139,0.3);}
+  a:hover{border-bottom-color:var(--accent);}
+  ul,ol{padding-left:24px;margin:14px 0;}
+  li{margin:9px 0;}
+  strong{font-weight:700;}
+  code{background:#eef0f3;border-radius:5px;padding:2px 7px;font-size:0.85em;
+    font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;color:#0f3a56;}
+  .module{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:34px 32px 30px;margin:26px 0;box-shadow:0 1px 3px rgba(16,24,40,0.04);}
+  .m-badge{display:inline-block;background:var(--accent);color:#fff;font-weight:800;font-size:14px;
+    border-radius:999px;padding:5px 15px;letter-spacing:0.5px;margin-bottom:14px;}
+  .m-badge.soft{background:#5a6472;}
+  .m-badge.next{background:#fff;color:var(--accent);border:1.5px solid var(--accent);}
+  .goal{background:var(--accent-soft);border-radius:10px;padding:14px 18px;font-size:16.5px;color:#123f5c;margin:14px 0 6px;}
+  .box{border-radius:12px;padding:16px 20px;margin:20px 0;font-size:16px;line-height:1.55;}
+  .box .label{font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:12.5px;display:block;margin-bottom:5px;}
+  .box.good{background:var(--good-soft);border:1px solid #c6e3d2;color:#1f5138;}
+  .box.good .label{color:var(--good);}
+  .box.warn{background:var(--warn-soft);border:1px solid #f0dcae;color:#5c3d00;}
+  .box.warn .label{color:var(--warn);}
+  .prove{border:2px solid var(--good);border-radius:12px;padding:16px 20px;margin:22px 0;background:#f4faf6;}
+  .prove .label{font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:12.5px;color:var(--good);display:block;margin-bottom:6px;}
+  ol.steps{counter-reset:step;list-style:none;padding-left:0;}
+  ol.steps>li{position:relative;padding-left:46px;margin:16px 0;}
+  ol.steps>li::before{counter-increment:step;content:counter(step);
+    position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;
+    background:var(--accent);color:#fff;font-weight:800;font-size:15px;
+    display:flex;align-items:center;justify-content:center;}
+  @media(max-width:620px){body{font-size:18px;}h1{font-size:32px;}h2{font-size:24px;}.module{padding:26px 20px;}header.top{padding-top:44px;}}
+  .foot{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:14.5px;}
+</style>
+</head>
+<body>
+<nav style="background:#111827;padding:11px 20px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:9999;font-size:14px;">
+<a href="index.html" style="color:#fff;text-decoration:none;font-weight:800;">AI Infrastructure Lab</a>
+<a href="index.html" style="color:#cbd5e1;text-decoration:none;">Hub</a>
+<a href="progression.html" style="color:#cbd5e1;text-decoration:none;">Progression</a>
+<a href="modules.html" style="color:#cbd5e1;text-decoration:none;">Modules</a>
+<a href="workbench.html" style="color:#cbd5e1;text-decoration:none;">Workbench</a>
+<a href="documentation.html" style="color:#cbd5e1;text-decoration:none;">Docs</a>
+</nav>
+
+<header class="top">
+  <p class="kicker">South Fayette Foundry · AI Infrastructure Lab</p>
+  <h1>Start Here</h1>
+  <p class="lede">Your first self-directed modules. Work through them at your own pace — each one ends with something you have to <em>show</em>, not just read.</p>
+  <p class="meta">These modules sit on top of the Learning Progression (the map of all seven levels), and together they cover the whole arc — from the on-ramp to a shipped capstone. Links point to official docs; commands, model names, and versions change, so when in doubt, trust the official page over any screenshot or older tutorial.</p>
+</header>
+
+<div class="wrap">
+
+  <p>Read this first: you are not here to "use AI." You're here to do the thing organizations pay for and rarely find — take an open model, get it running on real hardware, serve it, connect machines together, and build on top. Nobody expects you to know this yet. Follow the modules, get stuck, ask, and keep a log of what you tried. The log is half the skill.</p>
+
+  <div class="box good">
+    <span class="label">How to work</span>
+    <p>Keep a running notebook (paper or a doc). For every step, write what you ran, what happened, and what you changed. When something breaks — and it will — that log is what turns a frustrating hour into a skill you own. "Read the error message out loud" solves more problems than anything else in this lab.</p>
+  </div>
+
+  <!-- MODULE 0 -->
+  <div class="module" id="m0">
+    <span class="m-badge soft">Module 0</span>
+    <h2>On-ramp — learn the language</h2>
+    <div class="goal"><strong>Goal:</strong> Be able to explain, in plain English, what an open-weight LLM is, and be comfortable enough with Python and the terminal to read and edit a short script.</div>
+
+    <h4>What you'll do</h4>
+    <ol class="steps">
+      <li>Create a free account at <a href="https://huggingface.co">huggingface.co</a>. This is where the open models live.</li>
+      <li>Work through the opening chapters of the <a href="https://huggingface.co/learn/llm-course/chapter1/1">Hugging Face LLM Course</a> — enough to understand what a "model," a "token," and "the Transformers library" mean.</li>
+      <li>Get comfortable in a terminal (navigate folders, run a Python file) and learn Python basics if you haven't. Aim toward the <a href="https://pythoninstitute.org/pcep">PCEP</a> level — it's the cheapest real certification you can earn and a clean first goal.</li>
+      <li>Open five real <strong>model cards</strong> on the Hub (for example, search <code>Qwen3-8B</code>, <code>gemma</code>, <code>gpt-oss-20b</code>). For each, find its size, its license, and whether it's a "base" or "instruct" model.</li>
+    </ol>
+
+    <h4>What these words mean</h4>
+    <ul>
+      <li><strong>Open-weight model:</strong> the actual trained model is downloadable and you can run it yourself — no company's server required.</li>
+      <li><strong>Base vs instruct:</strong> a "base" model just continues text; an "instruct" (or "-it") model has been trained to follow instructions and chat. You almost always want <em>instruct</em>.</li>
+      <li><strong>License:</strong> the rules for using a model. Some (Apache&nbsp;2.0) are wide open. Some (Meta's Llama) make you accept terms first — that's called "gated."</li>
+    </ul>
+
+    <div class="prove">
+      <span class="label">Prove it</span>
+      In your notebook, write a short paragraph a friend with zero background could understand: what an open-weight LLM is, and the difference between a base and an instruct model. Then list your five model cards with each one's size and license.
+    </div>
+  </div>
+
+  <!-- MODULE 1 -->
+  <div class="module" id="m1">
+    <span class="m-badge">Module 1</span>
+    <h2>Run — your first local model</h2>
+    <div class="goal"><strong>Goal:</strong> Get an open model running on a lab machine, chat with it, and then talk to it from your own Python script through its API.</div>
+
+    <p>This is the module where it clicks. By the end, a real AI model will be answering you — running entirely on the computer in front of you, with no internet connection required once it's downloaded.</p>
+
+    <h4>Part A — Get it talking</h4>
+    <ol class="steps">
+      <li>Install <a href="https://ollama.com">Ollama</a> on your lab machine (follow the official install page for your operating system).</li>
+      <li>Pull an open model with <code>ollama pull qwen3:8b</code> (or whichever model your teacher points you to — check the exact name on the <a href="https://ollama.com">Ollama</a> model list, since names change).</li>
+      <li>Start chatting with <code>ollama run qwen3:8b</code>. Ask it something. You're now running a local LLM.</li>
+      <li>Watch your GPU while it runs. Notice how much VRAM the model uses — that number is why you can't just run any model on any machine.</li>
+    </ol>
+
+    <div class="box good">
+      <span class="label">Pick an ungated model first</span>
+      <p>Start with an Apache-2.0 model like Qwen or Gemma or gpt-oss — they download with no license step. Save the Meta Llama models for later, once you understand why some models make you accept terms before you can use them.</p>
+    </div>
+
+    <h4>Part B — Talk to it from code</h4>
+    <p>Chatting in the terminal is fine, but the real skill is calling the model from a program. Ollama exposes an <strong>OpenAI-compatible API</strong> at <code>http://localhost:11434/v1/</code>. That phrase — "OpenAI-compatible" — is one of the most important ideas in this whole lab: it means the same code that talks to a giant cloud model can talk to your local one, just by changing the address.</p>
+    <ol class="steps">
+      <li>Write a short Python script that sends a chat message to <code>http://localhost:11434/v1/</code> and prints the reply. (The <a href="https://docs.ollama.com/api/openai-compatibility">official Ollama OpenAI-compatibility docs</a> show the exact shape — use them, don't guess.)</li>
+      <li>Change the prompt in your code and run it again. Now you're driving the model programmatically.</li>
+      <li>Try a second, smaller model and a second, larger one. Notice the trade-off: bigger models are smarter but slower and hungrier for VRAM.</li>
+    </ol>
+
+    <h4>Understand what just happened</h4>
+    <p>The model you ran was almost certainly <strong>quantized</strong> — shrunk down (in a format called GGUF) so it fits in your GPU's memory. That's why the same model comes in many sizes on the Hub. Ollama handled that for you; later you'll see the engine underneath it (<a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a>) and learn to do it yourself. Prefer clicking instead of typing? <a href="https://lmstudio.ai">LM Studio</a> is a GUI that does the same thing. On an Apple Silicon Mac, Ollama and LM Studio work the same way (Apple's own <a href="https://github.com/ml-explore/mlx-lm">MLX</a> is the deeper path).</p>
+
+    <div class="box warn">
+      <span class="label">Stretch: try a reasoning model</span>
+      <p>Once the basics work, pull a <em>reasoning</em> model like <a href="https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B">DeepSeek-R1-Distill-Qwen-7B</a> and watch it "think" through a problem before answering. Note in your log how its answers differ from the regular instruct model — and read its license on the model card. The huge frontier models (full DeepSeek, Kimi, GLM) are too big for one GPU; that's a later, advanced unit.</p>
+    </div>
+
+    <div class="prove">
+      <span class="label">Prove it</span>
+      Show two things: (1) the model answering you in the terminal, and (2) your Python script getting a reply from <code>localhost</code>. In your notebook, explain in one paragraph what "OpenAI-compatible API" means and why it matters that your local model has one.
+    </div>
+  </div>
+
+  <!-- MODULE 2 -->
+  <div class="module" id="m2">
+    <span class="m-badge">Module 2</span>
+    <h2>Serve — like an organization would</h2>
+    <div class="goal"><strong>Goal:</strong> Move from "runs on my machine" to "serves the whole class at once" — the difference between a hobby and a job.</div>
+
+    <p>Ollama is your on-ramp, but it isn't how a company serves a model to hundreds of users. Here you step up to a production serving engine, package it so it runs the same way anywhere, and learn the networking that turns "I ran a model" into "I stood up a service."</p>
+
+    <h4>What you'll do</h4>
+    <ol class="steps">
+      <li>Serve an instruct model with <a href="https://docs.vllm.ai">vLLM</a> — it exposes an OpenAI-compatible server, same interface as Module 1, but built to answer many requests at once. Follow the official docs for the exact <code>vllm serve</code> command and model name.</li>
+      <li>Call your server <strong>from a different computer</strong> on the network using the box's IP address and port — not just <code>localhost</code>. This is the moment "it works on my machine" becomes "it works as a service."</li>
+      <li>Package the serving stack in <a href="https://www.docker.com">Docker</a> so it starts identically every time, on any machine.</li>
+      <li>Lock it down: open only the port you need (firewall), and <code>ssh</code> into the box to run it headless — no monitor attached.</li>
+    </ol>
+
+    <h4>Understand what just happened</h4>
+    <p>A production engine like vLLM <strong>batches</strong> many requests together and keeps the GPU busy, so it serves a whole class far better than running one chat at a time. That efficiency is the whole reason companies use engines like this instead of a desktop chat app.</p>
+
+    <div class="box good">
+      <span class="label">On a Mac mini</span>
+      <p>vLLM is built for NVIDIA GPUs. If your box is an Apple Silicon Mac, serve with Ollama, LM Studio, or Apple's <a href="https://github.com/ml-explore/mlx-lm">MLX</a> instead — the OpenAI-compatible API is the same, so everything downstream still works.</p>
+    </div>
+
+    <div class="box warn">
+      <span class="label">Heads up</span>
+      <p>This is where it gets harder and more real. Expect to spend time reading error messages and official docs. That struggle <em>is</em> the skill employers pay for — most people never learn to serve a model, only to chat with one.</p>
+    </div>
+
+    <div class="prove">
+      <span class="label">Prove it</span>
+      Show your model answering a request sent from a <em>different</em> computer on the lab network, and show the service running inside Docker. In your log, explain in one paragraph why a batching server serves a class better than running <code>ollama run</code> for each person.
+    </div>
+  </div>
+
+  <!-- MODULE 3 -->
+  <div class="module" id="m3">
+    <span class="m-badge">Module 3</span>
+    <h2>Network — turn the lab into one service</h2>
+    <div class="goal"><strong>Goal:</strong> Take several boxes, each serving a model, and put them behind one address that load-balances across all of them.</div>
+
+    <p>This is what the lab was built for. You'll learn the pattern organizations actually run — many independent model servers behind a single gateway — and then run an honest experiment in <em>splitting</em> one model across machines to see why that's harder than it sounds.</p>
+
+    <h4>The real pattern</h4>
+    <ol class="steps">
+      <li>Get two or three boxes each serving a model (your Module 2 setup).</li>
+      <li>Put <a href="https://docs.litellm.ai/docs/proxy/load_balancing">LiteLLM</a> in front as a <strong>gateway</strong>: one OpenAI-compatible URL that spreads requests across all your boxes, hands out API keys, and logs who used what.</li>
+      <li>Test <strong>failover</strong>: send steady traffic, then pull the plug on one node. Watch the gateway route around it. That resilience is the point.</li>
+    </ol>
+
+    <h4>The experiment (great to learn, not to rely on)</h4>
+    <ol class="steps">
+      <li>Try splitting one bigger model <em>across</em> two machines — with <a href="https://github.com/ggml-org/llama.cpp/blob/master/tools/rpc/README.md">llama.cpp's RPC backend</a>, or <a href="https://github.com/exo-explore/exo">exo</a> if a Mac mini is in the mix (exo is built for Apple Silicon).</li>
+      <li>Measure it against a single box. You'll usually find it's slower, because the machines have to shuttle huge amounts of data over the network. That's the lesson: splitting a model wants very fast interconnect, which ordinary Ethernet isn't.</li>
+    </ol>
+
+    <div class="box warn">
+      <span class="label">Security moment — read this</span>
+      <p>The llama.cpp RPC docs say plainly: it's a proof-of-concept, it's insecure, and you should <strong>never run it on an open network</strong>. Keep the lab on its own isolated segment. This is exactly the kind of thing a real ops engineer has to think about — treat it as part of the work, not a side note.</p>
+    </div>
+
+    <div class="prove">
+      <span class="label">Prove it</span>
+      Show one gateway URL that keeps answering when you take a node offline. Then write up what happened when you tried splitting a model across two boxes — the numbers you measured, and why you think you saw them.
+    </div>
+  </div>
+
+  <!-- MODULE 4 -->
+  <div class="module" id="m4">
+    <span class="m-badge">Module 4</span>
+    <h2>Extend — build a tool your model can use</h2>
+    <div class="goal"><strong>Goal:</strong> Build your own MCP server that gives a model a new ability, and call it from a local model.</div>
+
+    <p>A model that can only talk is limited. The Model Context Protocol is the open standard that lets any AI app use tools you build — think of it as a universal plug. A motivated student can get a first server working in an afternoon.</p>
+
+    <h4>What you'll do</h4>
+    <ol class="steps">
+      <li>Follow the official <a href="https://modelcontextprotocol.io/docs/develop/build-server">Build an MCP server</a> quickstart in <strong>Python</strong> or <strong>TypeScript</strong>. Start by getting the example server running exactly as written.</li>
+      <li>Add <strong>your own tool</strong> — something with a real input and output. Look something up, do a calculation, read a file, hit a simple API. Make it yours.</li>
+      <li>Connect the server to a host and watch the model call your tool. Then point a <em>local</em> model (through the OpenAI-compatible endpoint from earlier modules) at it via an agent loop.</li>
+      <li>Work the Hugging Face <a href="https://huggingface.co/learn/mcp-course/en/unit1/introduction">MCP Course</a> for the concepts — and earn its free certificate.</li>
+    </ol>
+
+    <div class="box warn">
+      <span class="label">Honest limitation — and it's the lesson</span>
+      <p>A small model running on one lab GPU will call your tool <em>less reliably</em> than a giant cloud model does. Don't be discouraged — measure it. Note when your local model uses the tool correctly and when it fumbles. That gap is a real insight into why bigger, better-tuned models follow instructions more dependably.</p>
+    </div>
+
+    <div class="prove">
+      <span class="label">Prove it</span>
+      Show your own MCP tool being called successfully. Then log a handful of attempts driving it from a small local model — where it worked, where it didn't — and a sentence on what you think made the difference.
+    </div>
+  </div>
+
+  <!-- MODULE 5 -->
+  <div class="module" id="m5">
+    <span class="m-badge">Module 5</span>
+    <h2>Agents &amp; RAG — reason and retrieve</h2>
+    <div class="goal"><strong>Goal:</strong> Wire your model into an agent harness, then build the classic first project: chat with your own documents.</div>
+
+    <p>Now the model becomes the engine inside a bigger system. You'll use a real agent framework on top of your local stack, and build retrieval — the technique that lets a model answer from <em>your</em> documents instead of making things up.</p>
+
+    <h4>What you'll do</h4>
+    <ol class="steps">
+      <li>Use <a href="https://github.com/huggingface/smolagents">smolagents</a> (minimal, open, local-first) or the <a href="https://openai.github.io/openai-agents-python/">OpenAI Agents SDK</a> with <a href="https://docs.litellm.ai">LiteLLM</a> to build a simple agent, pointed at your local model, that uses a tool to accomplish a task.</li>
+      <li>Build a <strong>RAG</strong> pipeline: turn a folder of your own documents into embeddings (via sentence-transformers or Ollama), store them in <a href="https://www.trychroma.com">Chroma</a>, retrieve the closest matches to a question, and feed those to the model to answer.</li>
+      <li>Ask it things only answerable from your documents. Then check it's actually <em>retrieving</em> — make it show which document each answer came from.</li>
+      <li>Work the Hugging Face <a href="https://huggingface.co/learn/agents-course/unit0/introduction">Agents Course</a> (free certificate), and compare your local harness to a frontier one like the <a href="https://platform.claude.com/docs/en/agent-sdk/overview">Claude Agent SDK</a>.</li>
+    </ol>
+
+    <h4>Understand what just happened</h4>
+    <p>An <strong>embedding</strong> turns text into a list of numbers so a computer can measure how similar two pieces of text are. RAG uses that to pull in the <em>relevant</em> parts of your documents before the model answers — which is how you get answers grounded in real sources instead of confident guesses.</p>
+
+    <div class="prove">
+      <span class="label">Prove it</span>
+      Build a working "chat with my documents" that <em>cites the source</em> for each answer. In your log, explain what an embedding is and why retrieval makes the model's answers more trustworthy.
+    </div>
+  </div>
+
+  <!-- MODULE 6 -->
+  <div class="module" id="m6">
+    <span class="m-badge">Module 6</span>
+    <h2>Build &amp; capstone — ship something real</h2>
+    <div class="goal"><strong>Goal:</strong> Build and host a genuine application on the stack you set up, using every layer you've learned.</div>
+
+    <p>Everything comes together. You'll build a real app on the models the lab serves, use AI-assisted coding to move fast, and host it so other people can actually use it.</p>
+
+    <h4>What you'll do</h4>
+    <ol class="steps">
+      <li>Pick a real problem someone actually has. Design an app that touches the whole stack: a <strong>served model</strong> (Module 2), behind the <strong>gateway</strong> (Module 3), using an <strong>MCP tool you built</strong> (Module 4), inside an <strong>agent or RAG app</strong> (Module 5).</li>
+      <li>Build it. Use AI coding tools — <strong>Cline</strong> or <strong>Continue</strong> (open-source, point them at your local models) or Cursor — to move fast. But <em>read the code they generate.</em></li>
+      <li>Host it in the lab so classmates or teachers can use it.</li>
+      <li>Write it up for your portfolio, and sit whatever certifications fit your path (see the progression's cert map).</li>
+    </ol>
+
+    <div class="box warn">
+      <span class="label">Vibe coding, honestly</span>
+      <p>"Vibe coding" — describing what you want in plain English and letting the model write it — is real and fast. It's also a trap if you never read the result. Learn the switch: vibe when you're exploring or moving fast, read every line when it matters that you understand it. For a capstone you'll show off, you want to understand it.</p>
+    </div>
+
+    <div class="prove">
+      <span class="label">Prove it</span>
+      Ship a hosted, working app. Include a short writeup that maps each piece back to the module it came from, plus an honest reflection: where did you let AI write the code, and where did you read and understand it yourself?
+    </div>
+  </div>
+
+  <p style="color:var(--muted);font-size:16px;margin-top:36px;">That's the full arc — from your first local model to a hosted, agentic app you built on hardware you set up yourself. Very few people, at any age, can say they've done this end to end. Keep the log; it's the record of a real skill.</p>
+
+  <p class="foot">AI Infrastructure Lab — Student Modules · Working draft v1 · South Fayette Township School District. Links point to official sources; commands and model names change, so trust the official page. Ask your teacher when you're stuck — and write down what you tried first.</p>
+
+</div>
+</body>
+</html>

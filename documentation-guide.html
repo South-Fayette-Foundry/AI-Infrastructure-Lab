@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Build in the Open — Documentation Field Guide</title>
+<style>
+  :root{--ink:#1a1d24;--soft:#3d4453;--muted:#6b7280;--line:#e2ddec;--purple:#7a4bbd;--purple2:#5f3aa0;--blue:#1f5f8b;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:#f4f5f6;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:14px;line-height:1.45;}
+  .sheet{max-width:8.5in;margin:16px auto;background:#fff;padding:0.5in 0.55in;box-shadow:0 1px 6px rgba(0,0,0,.1);}
+  .noprint{max-width:8.5in;margin:12px auto 0;text-align:right;}
+  button{font:inherit;font-weight:700;font-size:13px;background:var(--purple);color:#fff;border:none;border-radius:8px;padding:8px 16px;cursor:pointer;}
+  .kicker{text-transform:uppercase;letter-spacing:2px;font-size:10.5px;font-weight:800;color:var(--purple);margin:0 0 4px;}
+  h1{font-size:24px;margin:0 0 4px;font-weight:800;letter-spacing:-0.4px;}
+  .sub{color:var(--soft);font-size:13px;margin:0 0 12px;max-width:74ch;}
+  h2{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--purple2);margin:16px 0 6px;font-weight:800;border-top:1px solid var(--line);padding-top:10px;}
+  .loop{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0 4px;}
+  .step{background:#f0eaf8;color:var(--purple2);border-radius:6px;padding:4px 9px;font-size:12px;font-weight:750;}
+  .arw{color:var(--muted);font-weight:800;}
+  .art{margin:6px 0;font-size:13px;}
+  .art b{color:var(--ink);}
+  .art .when{color:var(--muted);}
+  .tpl{background:#1e2230;border-radius:8px;padding:10px 12px;margin:8px 0;overflow-x:auto;}
+  .tpl pre{margin:0;color:#e7e9f0;font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:11px;line-height:1.55;white-space:pre-wrap;}
+  .tpl .c{color:#8b93a7;}
+  .tpl .k{color:#c8a6f0;}
+  .two{display:flex;gap:14px;flex-wrap:wrap;}
+  .two > div{flex:1 1 300px;}
+  .cap{background:#f0eaf8;border:1px solid #ddd0f0;border-radius:8px;padding:9px 12px;font-size:12.5px;color:#4a2f73;margin-top:8px;}
+  .foot{margin-top:14px;border-top:1px solid var(--line);padding-top:8px;color:var(--muted);font-size:10.5px;}
+  @media print{
+    .noprint{display:none !important;}
+    body{background:#fff;font-size:10pt;}
+    .sheet{box-shadow:none;margin:0;max-width:none;padding:0;}
+    .tpl{background:#fff;border:1px solid #ccc;}
+    .tpl pre{color:#111;font-size:8.8pt;}
+    .tpl .c{color:#666;} .tpl .k{color:#5f3aa0;}
+    .tpl,.art,.cap{break-inside:avoid;}
+    h2{break-after:avoid;}
+  }
+  @page{size:letter;margin:0.45in;}
+</style>
+</head>
+<body>
+<div class="noprint" style="display:flex;justify-content:space-between;align-items:center;"><a href="index.html" style="font-weight:700;font-size:13px;color:#7a4bbd;text-decoration:none;">&larr; Hub</a><button onclick="window.print()">Print / Save as PDF</button></div>
+<div class="sheet">
+  <p class="kicker">South Fayette Foundry · AI Infrastructure Lab · Build in the Open</p>
+  <h1>Documentation Field Guide</h1>
+  <p class="sub">Keep this with your work. A project you can <b>defend</b> beats one that merely runs. Capture your thinking as you go — while it's fresh and honest — so you can explain what you did, why you did it, and retrace your steps when something breaks.</p>
+
+  <h2>The loop — four moves you travel again and again</h2>
+  <div class="loop"><span class="step">1 · Understand the need</span><span class="arw">→</span><span class="step">2 · Decompose the problem</span><span class="arw">→</span><span class="step">3 · Build &amp; iterate</span><span class="arw">→</span><span class="step">4 · Document throughout</span><span class="arw">↺</span></div>
+
+  <h2>The five things you keep</h2>
+  <div class="art"><b>1 · Decision Log</b> <span class="when">— every work session.</span> Dated running notes: goal, what you tried, what happened, what you decided, why.</div>
+  <div class="art"><b>2 · README</b> <span class="when">— write it early.</span> The front door: what it does, who for, how to run it, how it works.</div>
+  <div class="art"><b>3 · Design Doc</b> <span class="when">— before anything big.</span> Goals, non-goals, your design, and the alternatives you considered.</div>
+  <div class="art"><b>4 · ADRs (Architecture Decision Records)</b> <span class="when">— per real decision.</span> One small note per meaningful, hard-to-reverse choice.</div>
+  <div class="art"><b>5 · Retrospective</b> <span class="when">— at the end / when it breaks.</span> What went well, what went wrong (causes, not blame), what you'd do differently.</div>
+  <div class="art" style="color:var(--muted);">Bonus: your <b>git commit history</b> with clear messages is documentation too — an automatic, time-stamped trail.</div>
+
+  <h2>Templates — copy these</h2>
+  <div class="two">
+    <div>
+      <div class="tpl"><pre><span class="c"># Decision Log entry</span>
+<span class="k">Date:</span> ____   <span class="k">Module:</span> ____
+<span class="k">Goal:</span> what I set out to do
+<span class="k">Tried:</span> what I actually did
+<span class="k">Happened:</span> result / the error
+<span class="k">Decided:</span> what I changed
+<span class="k">Why:</span> the reason
+<span class="k">Next:</span> open question / next step</pre></div>
+
+      <div class="tpl"><pre><span class="c"># ADR-00_: short title</span>
+<span class="k">Status:</span> proposed | accepted | superseded
+<span class="k">Context:</span> the problem &amp; constraints
+<span class="k">Decision:</span> what we chose
+<span class="k">Consequences:</span> what gets easier,
+   what gets harder (the trade-off)</pre></div>
+    </div>
+    <div>
+      <div class="tpl"><pre><span class="c"># README skeleton</span>
+<span class="k">## Project</span>  one line: what &amp; who for
+<span class="k">## Problem</span>  why it exists
+<span class="k">## Run it</span>  steps someone could follow
+<span class="k">## How it works</span>  3-5 sentences
+<span class="k">## Decisions</span>  links to your ADRs
+<span class="k">## Limits</span>  what it can't do yet
+<span class="k">## Credits</span>  incl. each model's license</pre></div>
+
+      <div class="tpl"><pre><span class="c"># Retrospective</span>
+<span class="k">Set out to:</span> ____
+<span class="k">What happened:</span> ____
+<span class="k">Went well:</span> ____
+<span class="k">Went wrong:</span> causes, not blame
+<span class="k">Root causes:</span> ____
+<span class="k">Do differently:</span> ____
+<span class="k">Action items:</span> each with an owner</pre></div>
+    </div>
+  </div>
+
+  <div class="cap"><b>Capture as you go, and it adds up.</b> M0: start the log. M1: ADR for your model choice. M2: README + real commits. M3–M5: an ADR per big decision, keep the README current. M6: full design doc up front, then a retrospective at the end. By the capstone your <b>portfolio has assembled itself</b> — and that portfolio is your strongest credential.</div>
+
+  <p class="foot">South Fayette Foundry · AI Infrastructure Lab — Documentation Field Guide · v1. Practices from real engineering teams: ADRs (Nygard, 2011), design docs (Google), README-driven development (Preston-Werner, 2010), blameless postmortems (Google SRE).</p>
+</div>
+</body>
+</html>

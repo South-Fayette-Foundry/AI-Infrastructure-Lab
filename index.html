@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Infrastructure Lab — Student Hub</title>
+<style>
+  :root{
+    --ink:#1a1d24;--ink-soft:#3d4453;--muted:#6b7280;--line:#e4e7ec;
+    --bg:#fbfbfa;--card:#ffffff;
+    --blue:#1f5f8b;--blue-soft:#eaf2f8;
+    --teal:#0e7a63;--teal-soft:#e6f3ef;
+    --purple:#7a4bbd;--purple-soft:#f0eaf8;
+    --ink2:#1a1d24;--radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:19px;line-height:1.6;letter-spacing:0.1px;}
+  .wrap{max-width:900px;margin:0 auto;padding:0 22px 120px;}
+  header.top{max-width:900px;margin:0 auto;padding:60px 22px 10px;}
+  .kicker{text-transform:uppercase;letter-spacing:2.5px;font-size:13px;font-weight:700;color:var(--blue);margin:0 0 14px;}
+  h1{font-size:44px;line-height:1.08;margin:0 0 16px;font-weight:800;letter-spacing:-0.6px;}
+  .lede{font-size:21px;line-height:1.5;color:var(--ink-soft);margin:0;max-width:48ch;}
+  h2{font-size:26px;margin:52px 0 6px;font-weight:800;letter-spacing:-0.3px;}
+  h2 .em{font-size:14px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;display:block;margin-bottom:2px;}
+  p{margin:13px 0;}
+  a{color:var(--blue);text-decoration:none;}
+  .sub{color:var(--ink-soft);max-width:62ch;margin-top:4px;}
+
+  /* class-links callout */
+  .classlinks{background:#fffdf5;border:1px solid #ecdfa8;border-radius:var(--radius);padding:22px 24px;margin:28px 0 8px;}
+  .classlinks h3{margin:0 0 4px;font-size:17px;font-weight:800;color:#7a5a00;}
+  .classlinks p{margin:4px 0 14px;font-size:15px;color:#6b5416;}
+  .fill{display:flex;flex-wrap:wrap;gap:10px;}
+  .fillitem{flex:1 1 240px;background:#fff;border:1px dashed #d9c78a;border-radius:10px;padding:12px 14px;}
+  .fillitem .fl{font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:0.6px;color:#8a6d1a;display:block;margin-bottom:4px;}
+  .fillitem .fv{font-size:14.5px;color:#a79055;font-style:italic;}
+
+  /* foundation cards */
+  .cards2{display:flex;flex-wrap:wrap;gap:16px;margin:18px 0;}
+  .fcard{flex:1 1 260px;border-radius:var(--radius);padding:22px 24px;border:1px solid var(--line);background:var(--card);}
+  .fcard.teal{border-top:5px solid var(--teal);}
+  .fcard.purple{border-top:5px solid var(--purple);}
+  .fcard .ft{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+  .fcard.teal .ft{color:var(--teal);}
+  .fcard.purple .ft{color:var(--purple);}
+  .fcard h3{margin:0 0 6px;font-size:21px;font-weight:780;}
+  .fcard p{margin:0;font-size:15.5px;color:var(--ink-soft);line-height:1.5;}
+
+  /* module list */
+  .modlist{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:18px 0;background:var(--card);}
+  .mod{display:flex;gap:16px;align-items:flex-start;padding:16px 22px;border-bottom:1px solid var(--line);}
+  .mod:last-child{border-bottom:none;}
+  .mod .n{flex:0 0 auto;width:38px;height:38px;border-radius:10px;background:var(--blue);color:#fff;font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center;}
+  .mod.cap .n{background:#153f5c;}
+  .mod .body{flex:1;}
+  .mod .mt{font-weight:750;font-size:17.5px;margin:0 0 2px;}
+  .mod .md{margin:0;font-size:15px;color:var(--ink-soft);line-height:1.45;}
+
+  /* quick-link grids */
+  .grid{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0;}
+  .ql{flex:1 1 250px;display:block;border:1px solid var(--line);border-radius:12px;padding:15px 18px;background:var(--card);color:var(--ink);transition:border-color .15s;}
+  .ql:hover{border-color:var(--blue);}
+  .ql .qt{font-weight:750;font-size:16.5px;margin:0 0 2px;}
+  .ql .qd{font-size:14px;color:var(--muted);margin:0;line-height:1.4;}
+  .ql .qt .lic{font-size:12px;font-weight:700;color:var(--teal);background:var(--teal-soft);padding:1px 7px;border-radius:5px;margin-left:6px;vertical-align:middle;}
+  .ql.placeholder{border-style:dashed;background:#fffdf5;}
+  .ql.placeholder .qt{color:#8a6d1a;}
+  .ql.placeholder .qd{color:#a79055;font-style:italic;}
+
+  @media(max-width:620px){body{font-size:18px;}h1{font-size:34px;}h2{font-size:22px;}header.top{padding-top:44px;}}
+  .foot{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:14px;line-height:1.6;}
+  .foot a{color:var(--muted);}
+</style>
+</head>
+<body>
+<nav style="background:#111827;padding:11px 20px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:9999;font-size:14px;">
+<a href="index.html" style="color:#fff;text-decoration:none;font-weight:800;">AI Infrastructure Lab</a>
+<a href="index.html" style="color:#cbd5e1;text-decoration:none;">Hub</a>
+<a href="progression.html" style="color:#cbd5e1;text-decoration:none;">Progression</a>
+<a href="modules.html" style="color:#cbd5e1;text-decoration:none;">Modules</a>
+<a href="workbench.html" style="color:#cbd5e1;text-decoration:none;">Workbench</a>
+<a href="documentation.html" style="color:#cbd5e1;text-decoration:none;">Docs</a>
+</nav>
+
+<header class="top">
+  <p class="kicker">South Fayette Foundry</p>
+  <h1>AI Infrastructure Lab</h1>
+  <p class="lede">Your home base. Everything you need to run open AI models, build on top of them, and find your way through the course — in one place.</p>
+</header>
+
+<div class="wrap">
+
+  <div class="classlinks">
+    <h3>Your class links</h3>
+    <p>Your teacher fills these in for your class. Bookmark this page once they're set.</p>
+    <div class="fill">
+      <div class="fillitem"><span class="fl">Our GitHub organization</span><span class="fv">‹ your teacher will add this ›</span></div>
+      <div class="fillitem"><span class="fl">Our live model gateway</span><span class="fv">‹ the lab's LiteLLM URL ›</span></div>
+      <a class="fillitem" href="modules.html" style="display:block;text-decoration:none;"><span class="fl">Course materials</span><span class="fv" style="color:#1f5f8b;font-style:normal;">Open the modules →</span></a>
+    </div>
+  </div>
+
+  <h2><span class="em">Start here — before the tech</span>The two foundations</h2>
+  <p class="sub">Do these first, then keep using them the whole way through. They're how professionals actually work.</p>
+  <div class="cards2">
+    <div class="fcard teal">
+      <div class="ft">Foundation · The Workbench</div>
+      <h3>Set up like an engineer</h3>
+      <p>Your editor, the terminal, git &amp; GitHub, reproducible environments, and how the whole developer ecosystem fits together.</p>
+      <p style="margin-top:12px;"><a href="workbench.html" style="color:#0e7a63;font-weight:750;text-decoration:none;">Open the module →</a></p>
+    </div>
+    <div class="fcard purple">
+      <div class="ft">Foundation · Build in the Open</div>
+      <h3>Document your thinking</h3>
+      <p>The process and the habit of recording your decisions — so you can defend your work, retrace your steps, and build a real portfolio.</p>
+      <p style="margin-top:12px;"><a href="documentation.html" style="color:#7a4bbd;font-weight:750;text-decoration:none;">Open the module →</a></p>
+    </div>
+  </div>
+
+  <h2><span class="em">The path — seven modules</span>From first model to shipped project</h2>
+  <div class="modlist">
+    <a class="mod" href="modules.html#m0" style="text-decoration:none;color:inherit;"><div class="n">0</div><div class="body"><p class="mt">On-ramp</p><p class="md">Learn the language: what an open model is, Python, the terminal, the Hugging Face Hub.</p></div></a>
+    <a class="mod" href="modules.html#m1" style="text-decoration:none;color:inherit;"><div class="n">1</div><div class="body"><p class="mt">Run</p><p class="md">Get an open model talking on one machine, and call it from your own code.</p></div></a>
+    <a class="mod" href="modules.html#m2" style="text-decoration:none;color:inherit;"><div class="n">2</div><div class="body"><p class="mt">Serve</p><p class="md">Serve a model to the whole class the way an organization would.</p></div></a>
+    <a class="mod" href="modules.html#m3" style="text-decoration:none;color:inherit;"><div class="n">3</div><div class="body"><p class="mt">Network</p><p class="md">Turn many machines into one service behind a single gateway.</p></div></a>
+    <a class="mod" href="modules.html#m4" style="text-decoration:none;color:inherit;"><div class="n">4</div><div class="body"><p class="mt">Extend — MCP</p><p class="md">Build a tool your model can actually use, with the Model Context Protocol.</p></div></a>
+    <a class="mod" href="modules.html#m5" style="text-decoration:none;color:inherit;"><div class="n">5</div><div class="body"><p class="mt">Agents &amp; RAG</p><p class="md">Wire models into agent harnesses and chat with your own documents.</p></div></a>
+    <a class="mod cap" href="modules.html#m6" style="text-decoration:none;color:inherit;"><div class="n">6</div><div class="body"><p class="mt">Build &amp; Capstone</p><p class="md">Ship a real, hosted app on the stack you built — and write it up.</p></div></a>
+  </div>
+
+  <h2><span class="em">Models</span>Run these</h2>
+  <p class="sub">Open models that fit a single lab GPU. Click a card to read its model card on Hugging Face; pull it with Ollama or serve it per the modules. Always check the license on the card.</p>
+  <div class="grid">
+    <a class="ql" href="https://huggingface.co/Qwen/Qwen3-8B"><p class="qt">Qwen3-8B <span class="lic">Apache 2.0</span></p><p class="qd">The safe default — open, ungated, fast on one GPU.</p></a>
+    <a class="ql" href="https://huggingface.co/google"><p class="qt">Google Gemma <span class="lic">Apache 2.0</span></p><p class="qd">Smaller instruct variants fit comfortably. Verify the current version.</p></a>
+    <a class="ql" href="https://huggingface.co/openai/gpt-oss-20b"><p class="qt">gpt-oss-20b <span class="lic">Apache 2.0</span></p><p class="qd">Open model that ships quantized to about 16&nbsp;GB.</p></a>
+    <a class="ql" href="https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"><p class="qt">DeepSeek-R1-Distill-Qwen-7B</p><p class="qd">A reasoning model that fits one GPU. Check the card's license.</p></a>
+    <a class="ql" href="https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Llama-8B"><p class="qt">DeepSeek-R1-Distill-Llama-8B</p><p class="qd">The Llama-based reasoning distill. Check the card's license.</p></a>
+    <a class="ql" href="https://ollama.com/library"><p class="qt">Ollama model library →</p><p class="qd">Browse and pull models by name from the terminal.</p></a>
+    <a class="ql placeholder" href="#"><p class="qt">Our class's live models →</p><p class="qd">‹ your lab gateway URL, once Module 3 is running ›</p></a>
+    <a class="ql" href="https://huggingface.co/models"><p class="qt">Search all models →</p><p class="qd">The full Hugging Face Hub.</p></a>
+  </div>
+
+  <h2><span class="em">Tools &amp; accounts</span>Your everyday links</h2>
+  <div class="grid">
+    <a class="ql" href="https://github.com"><p class="qt">GitHub →</p><p class="qd">Your repos, branches, and pull requests. Join the class org.</p></a>
+    <a class="ql" href="https://github.com/features/codespaces/"><p class="qt">Codespaces →</p><p class="qd">A ready-to-code environment in your browser.</p></a>
+    <a class="ql" href="https://huggingface.co"><p class="qt">Hugging Face →</p><p class="qd">Models, datasets, and the class organization.</p></a>
+    <a class="ql" href="https://ollama.com"><p class="qt">Ollama →</p><p class="qd">Install it, then pull and run models locally.</p></a>
+    <a class="ql" href="https://code.visualstudio.com"><p class="qt">VS Code →</p><p class="qd">Your code editor.</p></a>
+    <a class="ql" href="https://modelcontextprotocol.io"><p class="qt">Model Context Protocol →</p><p class="qd">Docs for building your own MCP tools (Module 4).</p></a>
+  </div>
+
+  <h2><span class="em">Learn</span>Free courses to go deeper</h2>
+  <div class="grid">
+    <a class="ql" href="https://huggingface.co/learn/llm-course/chapter1/1"><p class="qt">HF LLM Course →</p><p class="qd">How models work, from the ground up (Modules 0–1).</p></a>
+    <a class="ql" href="https://huggingface.co/learn/mcp-course/en/unit1/introduction"><p class="qt">HF MCP Course →</p><p class="qd">Build MCP servers — free certificate (Module 4).</p></a>
+    <a class="ql" href="https://huggingface.co/learn/agents-course/unit0/introduction"><p class="qt">HF Agents Course →</p><p class="qd">Build agents — free certificate (Module 5).</p></a>
+  </div>
+
+  <h2><span class="em">Handouts</span>Printable guides to keep</h2>
+  <div class="grid">
+    <a class="ql" href="pathway.html"><p class="qt">Your Pathway (checklist) →</p><p class="qd">The whole path on one page — check off each step as you show your evidence.</p></a>
+    <a class="ql" href="certifications.html"><p class="qt">Certifications →</p><p class="qd">What you can earn, with cost and exam info. Free ones first.</p></a>
+    <a class="ql" href="documentation-guide.html"><p class="qt">Documentation Field Guide →</p><p class="qd">Keep-with-you templates for documenting your work.</p></a>
+  </div>
+
+  <div class="foot">
+    <p><strong>For teachers:</strong> companion pages on this site — <a href="progression.html">Learning Progression &amp; Resource Map</a>, <a href="workbench.html">The Workbench</a> and <a href="documentation.html">Build in the Open</a> (the two foundations), and the <a href="modules.html">student modules</a>. The staff-only docs — the assessment guide, the tools &amp; accounts list, and the IT runbook — are shared with teachers and IT separately, not on the public student site. Fill in the class links at the top and share this hub as the students' home base. The models shown fit a single 16–24&nbsp;GB GPU as of August 2026; verify current versions each term.</p>
+    <p>AI Infrastructure Lab — Student Hub · South Fayette Township School District.</p>
+  </div>
+
+</div>
+</body>
+</html>

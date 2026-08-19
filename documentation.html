@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Build in the Open — Process &amp; Documentation Studio</title>
+<style>
+  :root{
+    --ink:#1a1d24;--ink-soft:#3d4453;--muted:#6b7280;--line:#e4e7ec;
+    --bg:#fbfbfa;--card:#ffffff;--accent:#7a4bbd;--accent2:#1f5f8b;
+    --accent-soft:#f0eaf8;--warn:#8a5a00;--warn-soft:#fff6e6;
+    --good:#2f6f4f;--good-soft:#e9f4ee;--radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:19px;line-height:1.65;letter-spacing:0.1px;}
+  .wrap{max-width:840px;margin:0 auto;padding:0 22px 120px;}
+  header.top{max-width:840px;margin:0 auto;padding:64px 22px 20px;}
+  .kicker{text-transform:uppercase;letter-spacing:2.5px;font-size:13px;font-weight:700;color:var(--accent);margin:0 0 14px;}
+  h1{font-size:41px;line-height:1.12;margin:0 0 18px;font-weight:800;letter-spacing:-0.5px;}
+  .lede{font-size:21px;line-height:1.55;color:var(--ink-soft);margin:0;max-width:47ch;}
+  .meta{color:var(--muted);font-size:15px;margin-top:26px;border-top:1px solid var(--line);padding-top:18px;}
+  h2{font-size:29px;line-height:1.2;margin:60px 0 8px;font-weight:800;letter-spacing:-0.3px;padding-top:20px;border-top:2px solid var(--ink);}
+  h3{font-size:22px;margin:34px 0 6px;font-weight:750;}
+  h4{font-size:15px;margin:22px 0 6px;font-weight:800;text-transform:uppercase;letter-spacing:1.1px;color:var(--muted);}
+  p{margin:14px 0;}
+  a{color:var(--accent2);text-decoration:none;border-bottom:1px solid rgba(31,95,139,0.3);}
+  a:hover{border-bottom-color:var(--accent2);}
+  .section-note{color:var(--ink-soft);max-width:62ch;}
+  ul,ol{padding-left:24px;margin:14px 0;}
+  li{margin:9px 0;}
+  strong{font-weight:700;}
+  code{background:#eef0f3;border-radius:5px;padding:2px 7px;font-size:0.85em;font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;color:#0f3a56;}
+
+  .part-badge{display:inline-block;background:var(--accent);color:#fff;font-weight:800;font-size:13px;border-radius:999px;padding:5px 15px;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
+
+  .phase{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px 28px;margin:18px 0;box-shadow:0 1px 3px rgba(16,24,40,0.04);}
+  .phase-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;}
+  .phase-num{display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:#fff;font-weight:800;font-size:14px;border-radius:8px;padding:4px 11px;}
+  .phase-title{font-size:20px;font-weight:760;margin:0;}
+  .phase-src{color:var(--muted);font-size:14px;font-weight:600;margin:2px 0 12px;}
+
+  .box{border-radius:12px;padding:16px 20px;margin:20px 0;font-size:16.5px;line-height:1.55;}
+  .box .label{font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:12.5px;display:block;margin-bottom:5px;}
+  .box.good{background:var(--good-soft);border:1px solid #c6e3d2;color:#1f5138;}
+  .box.good .label{color:var(--good);}
+  .box.warn{background:var(--warn-soft);border:1px solid #f0dcae;color:#5c3d00;}
+  .box.warn .label{color:var(--warn);}
+  .box.info{background:var(--accent-soft);border:1px solid #ddd0f0;color:#4a2f73;}
+  .box.info .label{color:var(--accent);}
+
+  .tpl{background:#1e2230;border-radius:12px;padding:20px 22px;margin:18px 0;overflow-x:auto;}
+  .tpl pre{margin:0;color:#e7e9f0;font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:14px;line-height:1.7;white-space:pre-wrap;}
+  .tpl .tc{color:#8b93a7;}
+  .tpl .tk{color:#c8a6f0;}
+
+  .art{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent2);border-radius:10px;padding:20px 24px;margin:16px 0;}
+  .art h3{margin:0 0 4px;font-size:19px;}
+  .art .when{color:var(--muted);font-size:14.5px;font-weight:600;margin:0 0 8px;}
+
+  .tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:20px 0;border-radius:12px;border:1px solid var(--line);}
+  table{border-collapse:collapse;width:100%;font-size:15.5px;background:var(--card);min-width:560px;}
+  th,td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{background:#f3f5f8;font-weight:700;font-size:13.5px;text-transform:uppercase;letter-spacing:0.6px;color:var(--ink-soft);}
+  tr:last-child td{border-bottom:none;}
+  td strong{white-space:nowrap;}
+  .prove{border:2px solid var(--good);border-radius:12px;padding:16px 20px;margin:22px 0;background:#f4faf6;}
+  .prove .label{font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:12.5px;color:var(--good);display:block;margin-bottom:6px;}
+
+  @media(max-width:620px){body{font-size:18px;}h1{font-size:32px;}h2{font-size:24px;}.phase{padding:22px 18px;}header.top{padding-top:44px;}.tpl pre{font-size:13px;}}
+  .foot{margin-top:66px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:14px;line-height:1.6;}
+  .foot a{color:var(--muted);}
+</style>
+</head>
+<body>
+<nav style="background:#111827;padding:11px 20px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:9999;font-size:14px;">
+<a href="index.html" style="color:#fff;text-decoration:none;font-weight:800;">AI Infrastructure Lab</a>
+<a href="index.html" style="color:#cbd5e1;text-decoration:none;">Hub</a>
+<a href="progression.html" style="color:#cbd5e1;text-decoration:none;">Progression</a>
+<a href="modules.html" style="color:#cbd5e1;text-decoration:none;">Modules</a>
+<a href="workbench.html" style="color:#cbd5e1;text-decoration:none;">Workbench</a>
+<a href="documentation.html" style="color:#cbd5e1;text-decoration:none;">Docs</a>
+</nav>
+
+<header class="top">
+  <p class="kicker">South Fayette Foundry · AI Infrastructure Lab · Studio 0</p>
+  <h1>Build in the Open</h1>
+  <p class="lede">Before you build anything, you learn how to think about building it — and how to leave a trail. This is the process and documentation studio that runs underneath every technical module.</p>
+  <p class="meta">The technical tools in this lab will change every year. This won't. Being able to explain what you built, how you built it, what you decided, and <em>why</em> — and to retrace your steps when something breaks — is the habit that transfers to any project, any field, for the rest of your life. It's also exactly what competitions like TSA and real engineering teams reward most.</p>
+</header>
+
+<div class="wrap">
+
+  <p>There's a difference between a project that <em>works</em> and a project you can <em>defend</em>. Anyone can get lucky and stumble into something that runs. What separates a real engineer — and a winning TSA portfolio — is the ability to walk someone through the whole journey: here was the problem, here's what I tried, here's what failed, here's the decision I made and the trade-off I accepted, and here's why. That trail is not busywork you add at the end. It's the work itself, captured as you go.</p>
+
+  <p>This studio has two parts. <strong>Part 1</strong> teaches the process and the documentation system, and gives you the templates you'll reuse constantly — do it before Module 0. <strong>Part 2</strong> is the ongoing practice: exactly what to document at each of the seven technical modules, building toward a portfolio you'd be proud to submit or show an employer.</p>
+
+  <div class="box info">
+    <span class="label">An honest note on where this comes from</span>
+    <p>The process below braids together three established frameworks — design thinking, computational thinking, and the engineering design process — plus real documentation practices used at engineering teams. Each piece is sourced at the bottom of this page. The <em>specific braid</em> is our studio's teaching framework, not a single published model. We're upfront about that on purpose: knowing what's established versus what's a useful synthesis is itself part of thinking clearly.</p>
+  </div>
+
+  <!-- PART 1 -->
+  <h2 id="part1">Part 1 · The process &amp; the system</h2>
+
+  <span class="part-badge">The process — one loop, four moves</span>
+  <p class="section-note">Real projects don't march in a straight line, and neither does this. Think of it as a loop you'll travel many times: understand, decompose, build-and-iterate, and — running through all of it — document. Each move borrows from a framework engineers and designers actually use.</p>
+
+  <div class="phase">
+    <div class="phase-head"><span class="phase-num">1</span><h3 class="phase-title">Understand the need</h3></div>
+    <p class="phase-src">from Design Thinking — Stanford d.school modes: Empathize &amp; Define</p>
+    <p>Before you write a line of code, get clear on who this is for and what they actually need. Whose problem are you solving? What would "better" look like <em>to them</em>? Most weak projects fail here — they build a clever thing nobody needed. Write the problem in one or two plain sentences you could say out loud to a stranger.</p>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="phase-num">2</span><h3 class="phase-title">Decompose the problem</h3></div>
+    <p class="phase-src">from Computational Thinking — Jeannette Wing, 2006</p>
+    <p>Break the big, scary problem into small pieces you can actually tackle. Look for patterns you've seen before, strip away the details that don't matter (that's <strong>abstraction</strong> — the part Wing emphasized most), and figure out the steps in order. A problem you can decompose is a problem you can start.</p>
+    <div class="box info">
+      <span class="label">Get the attribution right</span>
+      <p>You'll often see computational thinking taught as "four pillars" — decomposition, pattern recognition, abstraction, algorithm design. That four-part packaging came later (BBC/CAS education framing); Wing's original 2006 paper foregrounded abstraction rather than a tidy list of four. Both are useful — just don't credit the four pillars to Wing herself. Knowing the difference is exactly the kind of source discipline this studio is about.</p>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="phase-num">3</span><h3 class="phase-title">Build &amp; iterate</h3></div>
+    <p class="phase-src">from the Engineering Design Process — an iterative loop (e.g., TeachEngineering: Ask · Research · Imagine · Plan · Create · Test · Improve)</p>
+    <p>Make the smallest version that does something. Test it. See what breaks. Improve it. Repeat. The exact step names vary from source to source (NASA's version differs from TeachEngineering's — that's normal), but the heart is always the same: you loop, you don't sprint to a finish line. Your first version is supposed to be rough. The point is to learn from it.</p>
+  </div>
+
+  <div class="phase" style="border-color:var(--accent);border-width:2px;">
+    <div class="phase-head"><span class="phase-num" style="background:var(--accent2);">4</span><h3 class="phase-title">Document throughout — the connective tissue</h3></div>
+    <p class="phase-src">from real engineering practice — decision logs, design docs, ADRs, retrospectives</p>
+    <p>This is the move that ties the other three together and the reason this studio exists. As you understand, decompose, build, and iterate, you capture the trail: what you decided, what you tried, what happened, and why. Not at the end — <em>as it happens</em>, while it's fresh and honest. The rest of Part 1 is the toolkit for doing exactly this.</p>
+  </div>
+
+  <span class="part-badge" style="background:var(--accent2);margin-top:40px;">The system — five artifacts</span>
+  <p class="section-note">These are the real documents engineers keep. Each one has a job and a moment. You won't use all five every day, but by the capstone you'll have produced all of them — and that collection <em>is</em> your portfolio.</p>
+
+  <div class="art">
+    <h3>1 · The Decision Log (your running notebook)</h3>
+    <p class="when">Use it: every work session, from day one.</p>
+    <p>The heartbeat of everything. A dated running journal of what you set out to do, what you tried, what happened, and what you decided next. This is the direct equivalent of the <strong>engineering notebook</strong> that PLTW and FIRST Robotics teams keep, and TSA's <strong>"Plan of Work Log."</strong> When something breaks three weeks from now, this is how you retrace your steps.</p>
+  </div>
+
+  <div class="art">
+    <h3>2 · The README (write it early)</h3>
+    <p class="when">Use it: as soon as your project has a shape — ideally before you build much.</p>
+    <p>The front door to your project: what it does, who it's for, how to run it, how it works in a few sentences. There's a real practice called <strong>README-driven development</strong> (Tom Preston-Werner, 2010) — write the README <em>first</em>, so you build the right thing instead of "a perfect implementation of the wrong specification."</p>
+  </div>
+
+  <div class="art">
+    <h3>3 · The Design Doc (before anything nontrivial)</h3>
+    <p class="when">Use it: before you build something big — your RAG app, your capstone.</p>
+    <p>A short plan written <em>before</em> coding, covering context, goals and non-goals, your proposed design, and — the most important part — the <strong>alternatives you considered and why you didn't pick them</strong>. This is a core practice at engineering teams (Google engineers write these as a matter of course). It forces you to think before you type.</p>
+  </div>
+
+  <div class="art">
+    <h3>4 · Architecture Decision Records (ADRs)</h3>
+    <p class="when">Use it: every time you make a meaningful, hard-to-reverse choice.</p>
+    <p>A tiny, standardized note for a single decision: which model, which serving engine, which vector store. The format comes from <strong>Michael Nygard (2011)</strong> and is deliberately small — Title, Status, Context, Decision, Consequences. Ten ADRs tell the story of your whole project in decisions. This is the single most "industry" habit in the studio.</p>
+  </div>
+
+  <div class="art">
+    <h3>5 · The Retrospective (when you finish, or when it breaks)</h3>
+    <p class="when">Use it: at the end of a project, and after anything goes badly wrong.</p>
+    <p>An honest look back: what you set out to do, what actually happened, what went well, what went wrong, and what you'd do differently. Engineering teams call the incident version a <strong>blameless postmortem</strong> (from Google's SRE practice) — the rule is you focus on <em>causes, not blame</em>, assuming everyone did the best they could with what they knew. That honesty is what makes it useful.</p>
+  </div>
+
+  <h3>The templates — copy these</h3>
+  <p class="section-note">Keep these in a folder (a shared doc, a git repo, whatever your class uses). Copy a fresh one each time. Plain text on purpose — the thinking matters, not the formatting.</p>
+
+  <h4>Decision Log entry</h4>
+  <div class="tpl"><pre><span class="tc"># Decision Log — [your name] — [project]</span>
+
+<span class="tk">Date:</span> 2026-09-14   <span class="tk">Module/Phase:</span> M1 · Run
+<span class="tk">Goal today:</span> get an instruct model answering locally
+<span class="tk">Tried:</span> pulled qwen3:8b, ran it; then hit the API from Python
+<span class="tk">What happened:</span> chat worked; Python script 404'd until I fixed the base URL
+<span class="tk">Decided / changed:</span> using the /v1/ path exactly as the docs show
+<span class="tk">Why:</span> that's the OpenAI-compatible endpoint; my URL was missing /v1
+<span class="tk">Open question / next:</span> why is the 8B slower than expected? check VRAM</pre></div>
+
+  <h4>Architecture Decision Record (Nygard format)</h4>
+  <div class="tpl"><pre><span class="tc"># ADR-001: Choose base model for the lab</span>
+
+<span class="tk">Status:</span> accepted        <span class="tc">(proposed | accepted | superseded by ADR-xx)</span>
+
+<span class="tk">Context:</span>
+Single 16GB GPU per box. Students need an ungated, open-license
+model that fits and runs fast enough for live demos.
+
+<span class="tk">Decision:</span>
+Use Qwen3-8B (Apache 2.0) as the default. Keep gpt-oss-20b as a
+fallback for the boxes with more headroom.
+
+<span class="tk">Consequences:</span>
++ No license gate; every student can download immediately.
++ Fits comfortably; fast responses.
+- Not the strongest reasoning model; revisit with a DeepSeek-R1
+  distill later (that'll be ADR-006).</pre></div>
+
+  <h4>README skeleton</h4>
+  <div class="tpl"><pre><span class="tc"># Project Name</span>
+One sentence: what it does and who it's for.
+
+<span class="tk">## The problem</span>        why this exists
+<span class="tk">## How to run it</span>      exact steps someone else could follow
+<span class="tk">## How it works</span>       the architecture in 3-5 sentences
+<span class="tk">## Decisions</span>          links to the ADRs behind the big choices
+<span class="tk">## Known limits</span>       what it can't do yet (honesty scores points)
+<span class="tk">## Credits & licenses</span> incl. the license of every model you used</pre></div>
+
+  <h4>Design Doc</h4>
+  <div class="tpl"><pre><span class="tc"># Design Doc: [project]</span>   —   author · date
+
+<span class="tk">## Context & scope</span>     what we're building and what surrounds it
+<span class="tk">## Goals</span>               what success looks like (be specific)
+<span class="tk">## Non-goals</span>           what we are deliberately NOT doing
+<span class="tk">## Proposed design</span>     how it will work
+<span class="tk">## Alternatives</span>        other approaches + why we didn't pick them
+<span class="tk">## Cross-cutting</span>       security, cost, privacy, model licensing
+<span class="tk">## Open questions</span>      what we still need to figure out</pre></div>
+
+  <h4>Retrospective</h4>
+  <div class="tpl"><pre><span class="tc"># Retrospective: [project]</span>
+
+<span class="tk">## What we set out to build</span>
+<span class="tk">## What actually happened</span>
+<span class="tk">## What went well</span>
+<span class="tk">## What went wrong</span>   (causes, not blame — everyone did their best)
+<span class="tk">## Root / contributing causes</span>
+<span class="tk">## What we'd do differently</span>
+<span class="tk">## Action items</span>     (concrete, each with an owner)</pre></div>
+
+  <div class="box good">
+    <span class="label">The git bonus</span>
+    <p>Once you're using version control, your <strong>commit history is documentation too</strong> — an automatic, time-stamped audit trail of every change. Write real commit messages ("fix base URL so Python client reaches /v1 endpoint"), not "stuff" or "asdf." Future-you, and anyone reading your project, will thank you.</p>
+  </div>
+
+  <!-- PART 2 -->
+  <h2 id="part2">Part 2 · The ongoing practice</h2>
+  <p class="section-note">Documentation only works if it's continuous. Here's exactly what to capture at each technical module, so that by the capstone your portfolio has assembled itself. Small and steady beats a panicked write-up at the end — and it's more honest, because you're recording decisions while you actually remember them.</p>
+
+  <div class="tbl-scroll">
+  <table>
+    <thead><tr><th>Module</th><th>Capture this</th><th>New artifact</th></tr></thead>
+    <tbody>
+      <tr><td><strong>0 · On-ramp</strong></td><td>Start your Decision Log. Write your one-paragraph "who is this for / what do I want to build" (the Understand move).</td><td>Decision Log begins</td></tr>
+      <tr><td><strong>1 · Run</strong></td><td>Log every model you try. Write <strong>ADR-001</strong>: which base model, and the trade-off (license, VRAM, speed).</td><td>First ADR</td></tr>
+      <tr><td><strong>2 · Serve</strong></td><td>ADR: serving engine choice (Ollama vs vLLM, or MLX on a Mac). Start a README once your service runs. Begin real commit messages.</td><td>README + git history</td></tr>
+      <tr><td><strong>3 · Network</strong></td><td>ADR: gateway pattern vs splitting a model. Document your failover test — what you did, what you observed.</td><td>Evidence log</td></tr>
+      <tr><td><strong>4 · MCP</strong></td><td>ADR: what tool you built and why. README for your MCP server. Log where a small local model called it reliably vs not (real evidence).</td><td>Server README</td></tr>
+      <tr><td><strong>5 · Agents &amp; RAG</strong></td><td>Write a <strong>Design Doc</strong> before building (goals/non-goals, alternatives). ADR: vector store choice. Record which document each answer cited.</td><td>First Design Doc</td></tr>
+      <tr><td><strong>6 · Capstone</strong></td><td>Full Design Doc up front. ADRs for the big decisions. Complete the README. Write a blameless <strong>Retrospective</strong> at the end.</td><td>The full portfolio</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>The capstone documentation portfolio</h3>
+  <p>By Module 6 you assemble one package that tells the whole story of your project. This is simultaneously a professional engineering portfolio <em>and</em> the kind of documented-process submission that competitions reward. It contains:</p>
+  <ul>
+    <li>The <strong>README</strong> — the front door.</li>
+    <li>The <strong>Design Doc</strong> — your plan and the alternatives you weighed.</li>
+    <li>Your <strong>ADR set</strong> — the decisions, in order, with trade-offs.</li>
+    <li>Selected <strong>Decision Log</strong> excerpts — the messy, honest middle: what broke and how you got through it.</li>
+    <li>The <strong>Retrospective</strong> — what you learned.</li>
+    <li>A short <strong>demo</strong> — the thing actually working.</li>
+  </ul>
+
+  <div class="box info">
+    <span class="label">Why this is your real credential</span>
+    <p>Remember from the progression: there's no single industry certificate for self-hosting and building on open models. This portfolio is what fills that gap. "Here is a system I designed, built, hosted, and can defend decision-by-decision" is more convincing to a college or an employer than almost any exam badge — and it's the exact muscle competitions like TSA are built to reward.</p>
+  </div>
+
+  <div class="prove">
+    <span class="label">Prove it — the studio's own checkpoint</span>
+    Before you start Module 0, set up your documentation folder with a copy of each template, and write your first Decision Log entry: the problem you're drawn to and who it's for. You can't document a journey you haven't started — so start the log first, then take the first step.
+  </div>
+
+  <div class="foot">
+    <p><strong>Sources &amp; attribution</strong> (verified August 2026). Design Thinking five modes — <a href="https://dschool.stanford.edu/tools/design-thinking-bootleg">Stanford d.school Bootleg</a> (movement associated with IDEO / David Kelley / Tim Brown). Computational Thinking — Jeannette Wing, "Computational Thinking," <em>Communications of the ACM</em>, 2006; the "four pillars" packaging is later BBC/CAS education framing, not Wing's original. Engineering Design Process — <a href="https://www.teachengineering.org/populartopics/designprocess">TeachEngineering</a> (varies by source; cf. NASA/JPL). ADRs — <a href="https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions">Michael Nygard, 2011</a> / <a href="https://adr.github.io/">adr.github.io</a>. Design docs — <a href="https://www.industrialempathy.com/posts/design-docs-at-google/">Design Docs at Google</a>. README-driven development — <a href="https://tom.preston-werner.com/2010/08/23/readme-driven-development">Tom Preston-Werner, 2010</a>. Blameless postmortems — <a href="https://sre.google/sre-book/postmortem-culture/">Google SRE Book, ch. 15</a>. Competition models — TSA required event documentation incl. the "Plan of Work Log" (pull exact current-year event rubrics from the TSA advisor portal — they change annually and the numeric scoring is membership-gated); <a href="https://engineering.uiowa.edu/first-tech-challenge-engineering-portfolio">FIRST Engineering Portfolio</a>; PLTW engineering notebook. The four-move loop that braids these is this studio's teaching framework, built on the sourced components above — not a single published model.</p>
+    <p>Build in the Open — Process &amp; Documentation Studio · Working draft v1 · South Fayette Township School District.</p>
+  </div>
+
+</div>
+</body>
+</html>

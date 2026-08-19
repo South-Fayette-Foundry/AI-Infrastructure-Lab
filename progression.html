@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Infrastructure Lab — Learning Progression &amp; Resource Map</title>
+<style>
+  :root{
+    --ink:#1a1d24;
+    --ink-soft:#3d4453;
+    --muted:#6b7280;
+    --line:#e4e7ec;
+    --bg:#fbfbfa;
+    --card:#ffffff;
+    --accent:#1f5f8b;
+    --accent-soft:#eaf2f8;
+    --warn:#8a5a00;
+    --warn-soft:#fff6e6;
+    --good:#2f6f4f;
+    --good-soft:#e9f4ee;
+    --gap:#8a3b3b;
+    --gap-soft:#f7ecec;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:19px;
+    line-height:1.65;
+    letter-spacing:0.1px;
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:0 22px 120px;}
+  header.top{
+    max-width:860px;margin:0 auto;padding:64px 22px 20px;
+  }
+  .kicker{
+    text-transform:uppercase;letter-spacing:2.5px;font-size:13px;font-weight:700;
+    color:var(--accent);margin:0 0 14px;
+  }
+  h1{
+    font-size:41px;line-height:1.12;margin:0 0 18px;font-weight:800;letter-spacing:-0.5px;
+  }
+  .lede{font-size:21px;line-height:1.55;color:var(--ink-soft);margin:0 0 8px;max-width:44ch;}
+  .meta{color:var(--muted);font-size:15px;margin-top:26px;border-top:1px solid var(--line);padding-top:18px;}
+  h2{
+    font-size:29px;line-height:1.2;margin:64px 0 8px;font-weight:800;letter-spacing:-0.3px;
+    padding-top:20px;border-top:2px solid var(--ink);
+  }
+  h3{font-size:22px;margin:38px 0 6px;font-weight:750;}
+  h4{font-size:17px;margin:24px 0 6px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);}
+  p{margin:14px 0;}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(31,95,139,0.3);}
+  a:hover{border-bottom-color:var(--accent);}
+  .section-note{color:var(--ink-soft);max-width:60ch;}
+  ul,ol{padding-left:22px;margin:14px 0;}
+  li{margin:8px 0;}
+  strong{font-weight:700;}
+  code{
+    background:#eef0f3;border-radius:5px;padding:2px 7px;font-size:0.86em;
+    font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;color:#0f3a56;
+  }
+
+  /* Level cards */
+  .level{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:30px 30px 26px;margin:22px 0;box-shadow:0 1px 3px rgba(16,24,40,0.04);
+  }
+  .level-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:4px;}
+  .level-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    background:var(--accent);color:#fff;font-weight:800;font-size:15px;
+    border-radius:999px;padding:5px 14px;letter-spacing:0.5px;white-space:nowrap;
+  }
+  .level-badge.lvl0{background:#5a6472;}
+  .level-title{font-size:23px;font-weight:780;margin:0;line-height:1.2;}
+  .level-tag{color:var(--muted);font-size:14.5px;margin:2px 0 16px;font-weight:600;}
+  .level h4{margin-top:20px;}
+  .level p{margin:10px 0;}
+  .pill-row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px;}
+  .pill{
+    background:#f1f4f7;border:1px solid var(--line);border-radius:8px;
+    padding:5px 11px;font-size:14px;color:var(--ink-soft);font-weight:600;
+  }
+  .cert-line{
+    margin-top:18px;padding:12px 15px;background:var(--accent-soft);
+    border-radius:10px;font-size:15.5px;color:#123f5c;
+  }
+  .cert-line strong{color:#0d3149;}
+
+  /* Callout boxes */
+  .box{border-radius:12px;padding:18px 22px;margin:22px 0;font-size:16.5px;line-height:1.55;}
+  .box p{margin:8px 0;}
+  .box .label{font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:13px;display:block;margin-bottom:6px;}
+  .box.warn{background:var(--warn-soft);border:1px solid #f0dcae;color:#5c3d00;}
+  .box.warn .label{color:var(--warn);}
+  .box.good{background:var(--good-soft);border:1px solid #c6e3d2;color:#1f5138;}
+  .box.good .label{color:var(--good);}
+  .box.gap{background:var(--gap-soft);border:1px solid #e6c9c9;color:#6e2e2e;}
+  .box.gap .label{color:var(--gap);}
+  .box.info{background:#eef2f6;border:1px solid #d9e1ea;color:#33414f;}
+  .box.info .label{color:var(--accent);}
+
+  /* Tables */
+  .tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:20px 0;border-radius:12px;border:1px solid var(--line);}
+  table{border-collapse:collapse;width:100%;font-size:15.5px;background:var(--card);min-width:560px;}
+  th,td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{background:#f3f5f8;font-weight:700;font-size:13.5px;text-transform:uppercase;letter-spacing:0.6px;color:var(--ink-soft);}
+  tr:last-child td{border-bottom:none;}
+  td strong{white-space:nowrap;}
+  .fit-strong{color:var(--good);font-weight:700;}
+  .fit-mid{color:var(--warn);font-weight:700;}
+  .fit-no{color:var(--gap);font-weight:700;}
+
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 26px;margin:34px 0 10px;}
+  .toc h4{margin-top:0;}
+  .toc ol{columns:2;column-gap:34px;margin:6px 0 0;}
+  .toc a{border:none;font-weight:600;}
+  @media(max-width:620px){
+    body{font-size:18px;}
+    h1{font-size:33px;}
+    header.top{padding-top:44px;}
+    h2{font-size:25px;}
+    .level{padding:24px 20px;}
+    .toc ol{columns:1;}
+  }
+  .foot{margin-top:70px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:14.5px;}
+</style>
+</head>
+<body>
+<nav style="background:#111827;padding:11px 20px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:9999;font-size:14px;">
+<a href="index.html" style="color:#fff;text-decoration:none;font-weight:800;">AI Infrastructure Lab</a>
+<a href="index.html" style="color:#cbd5e1;text-decoration:none;">Hub</a>
+<a href="progression.html" style="color:#cbd5e1;text-decoration:none;">Progression</a>
+<a href="modules.html" style="color:#cbd5e1;text-decoration:none;">Modules</a>
+<a href="workbench.html" style="color:#cbd5e1;text-decoration:none;">Workbench</a>
+<a href="documentation.html" style="color:#cbd5e1;text-decoration:none;">Docs</a>
+</nav>
+
+<header class="top">
+  <p class="kicker">South Fayette Foundry · Reimagining K–12 CS</p>
+  <h1>The AI Infrastructure Lab</h1>
+  <p class="lede">A learning progression and resource map for students who set up, serve, network, and build on open-weight LLMs — the way organizations actually do it.</p>
+  <p class="meta">Working draft v1 · Built for a mixed-level pilot on 10+ dedicated-GPU machines (16&nbsp;GB+ VRAM) · Every tool and certification below was verified against its primary source in August 2026. Fast-moving items are flagged in place.</p>
+</header>
+
+<div class="wrap">
+
+  <div class="toc">
+    <h4>What's inside</h4>
+    <ol>
+      <li><a href="#how">How to read this</a></li>
+      <li><a href="#arc">The seven-level arc</a></li>
+      <li><a href="#levels">The levels in detail</a></li>
+      <li><a href="#certs">Certification map</a></li>
+      <li><a href="#library">Resource library</a></li>
+      <li><a href="#setup">Teacher &amp; lab setup notes</a></li>
+      <li><a href="#honest">Honest caveats &amp; what to re-check</a></li>
+    </ol>
+  </div>
+
+  <h2 id="how">How to read this</h2>
+  <p class="section-note">This is the backbone — the scope-and-sequence plus a vetted resource map. It is built so a mixed group can all start at the same low floor and then climb as far as they want. The student-facing, work-through-it modules are a companion document; this one is the map they hang from. Two foundation modules — <strong>The Workbench</strong> (the professional dev environment and ecosystem) and <strong>Build in the Open</strong> (process and documentation) — run <em>beneath</em> every level as the "how professionals work" layer, and are companion documents too.</p>
+
+  <p>The design goal is the thing employers keep asking for and schools rarely teach: not "prompt an AI," but <strong>stand up open models on real hardware, serve them reliably, network machines together, and build tools and agents on top.</strong> That skill sits at the intersection of three worlds — AI concepts, Linux/networking infrastructure, and DevOps — which is exactly why no single course or certificate covers it yet. The progression treats that intersection as the destination.</p>
+
+  <div class="box info">
+    <span class="label">A note on honesty in these materials</span>
+    <p>Some of what gets sold in this space is hype. Where a path is genuinely production-realistic, it's marked. Where something is a great <em>teaching</em> demo but not how you'd really run it, that's marked too. And where the industry simply has no credential yet, that's stated plainly rather than papered over. Students learn more from a map that admits its own edges.</p>
+  </div>
+
+  <h2 id="arc">The seven-level arc</h2>
+  <p class="section-note">Each level is a capability, not a week. In a pilot (club or independent study) a motivated student might reach Level 4–5 in a semester; the same levels become the unit structure when this grows into formal courses.</p>
+
+  <div class="tbl-scroll">
+  <table>
+    <thead><tr><th>Level</th><th>Capability gained</th><th>Anchor skill</th></tr></thead>
+    <tbody>
+      <tr><td><strong>0 · On-ramp</strong></td><td>Speak the language: what an LLM is, open vs closed weights, Python, the command line, the Hugging Face Hub</td><td>Foundations</td></tr>
+      <tr><td><strong>1 · Run</strong></td><td>Get an open model talking on one GPU box; understand quantization and VRAM</td><td>Local inference</td></tr>
+      <tr><td><strong>2 · Serve</strong></td><td>Serve a model like an organization would — production engine, API, concurrency, containers</td><td>Model serving</td></tr>
+      <tr><td><strong>3 · Network</strong></td><td>Turn separate boxes into one service behind a gateway; touch real distributed inference</td><td>Networking &amp; ops</td></tr>
+      <tr><td><strong>4 · Extend (MCP)</strong></td><td>Build tools the model can use, via the Model Context Protocol</td><td>Tool-building</td></tr>
+      <tr><td><strong>5 · Agents &amp; RAG</strong></td><td>Wire models into agent harnesses; build retrieval over your own documents</td><td>Agentic systems</td></tr>
+      <tr><td><strong>6 · Build &amp; capstone</strong></td><td>Vibe-code a real app on the local stack; ship a networked, served, agentic system</td><td>Applied capstone</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2 id="levels">The levels in detail</h2>
+
+  <!-- LEVEL 0 -->
+  <div class="level">
+    <div class="level-head">
+      <span class="level-badge lvl0">Level 0</span>
+      <h3 class="level-title">On-ramp — everyone starts here</h3>
+    </div>
+    <p class="level-tag">Low floor · no prerequisites · the shared vocabulary</p>
+    <p>Before anyone touches a GPU, the whole group builds the same footing: enough Python to read and edit a script, enough command line to move around a machine, and an honest mental model of what a large language model is and isn't. Then a guided tour of the Hugging Face Hub so "open-weight model" stops being an abstraction — students open real model cards, see licenses, sizes, and quantized variants.</p>
+    <h4>What students do</h4>
+    <ul>
+      <li>Work through the first chapters of the Hugging Face LLM Course (Transformers, how models are hosted).</li>
+      <li>Learn Python fundamentals and the terminal; make a free Hugging Face account.</li>
+      <li>Tour five real model cards and explain, in plain English, base vs instruct, parameter count, context length, and license.</li>
+    </ul>
+    <div class="pill-row">
+      <span class="pill">Python</span><span class="pill">Command line</span><span class="pill">Hugging Face Hub</span><span class="pill">Open vs closed weights</span>
+    </div>
+    <div class="cert-line"><strong>Cert alignment:</strong> Python Institute <strong>PCEP</strong> ($69, no prerequisites — the single most accessible credential in this whole map). Optional concept anchor: one foundational cloud-AI cert (AWS AI Practitioner, Azure AI-901, or Google GenAI Leader, all ~$100).</div>
+  </div>
+
+  <!-- LEVEL 1 -->
+  <div class="level">
+    <div class="level-head">
+      <span class="level-badge">Level 1</span>
+      <h3 class="level-title">Run — your first local model</h3>
+    </div>
+    <p class="level-tag">One box · one model · the "it's alive" moment</p>
+    <p>The payoff level. A student pulls an open model onto a single GPU machine and chats with it — no cloud, no API key, entirely their own. Then the concept that makes it possible: quantization. Why a model shrinks to fit 16–24&nbsp;GB, what GGUF is, and why the same model comes in a dozen sizes.</p>
+    <h4>What students do</h4>
+    <ul>
+      <li>Install <strong>Ollama</strong>, pull an open model, and chat from the terminal.</li>
+      <li>Hit the model's <strong>OpenAI-compatible API</strong> (<code>http://localhost:11434/v1/</code>) from a short Python script — the concept that unlocks every later level.</li>
+      <li>Try the <strong>LM Studio</strong> GUI as a no-terminal alternative, and peek at <strong>llama.cpp</strong> to see the engine underneath.</li>
+    </ul>
+    <h4>Models that fit a single 16–24&nbsp;GB GPU (verify exact version at term start)</h4>
+    <ul>
+      <li><strong>Qwen3-8B</strong> — Apache 2.0, ungated. The safe default.</li>
+      <li><strong>Google Gemma</strong> (smaller instruct variants) — Apache 2.0, ungated.</li>
+      <li><strong>OpenAI gpt-oss-20b</strong> — Apache 2.0, ships quantized to ~16&nbsp;GB.</li>
+      <li><strong>Meta Llama 3.x 8B</strong> — capable, but <em>gated</em>: each student must accept Meta's license first.</li>
+    </ul>
+    <div class="box good">
+      <span class="label">Realistic &amp; free</span>
+      <p>Prefer the Apache-2.0, ungated models (Qwen, Gemma, gpt-oss) so nobody is blocked waiting on a license acceptance. Save the gated Llama models for when students are ready to learn <em>why</em> licenses gate access.</p>
+    </div>
+    <div class="box info">
+      <span class="label">Reasoning models &amp; the frontier open weights</span>
+      <p>Two things worth naming out loud. First: <strong>Qwen is itself a frontier Chinese model</strong> (Alibaba) — the list here leads with one, it doesn't avoid them. The filter for this level is "fits and runs on a single 16–24&nbsp;GB GPU," not national origin.</p>
+      <p>Second, for students who want a <em>reasoning</em>-style model that still fits one GPU: <strong>DeepSeek-R1 distills</strong> (the 7B Qwen-based and 8B Llama-based variants) are a great option — read each card's license, since the distills inherit their base model's terms. The true frontier open weights — the full <strong>DeepSeek</strong> V3/R1, <strong>Moonshot Kimi</strong>, <strong>Zhipu GLM</strong>, and <strong>Llama&nbsp;4</strong>'s larger mixtures — are hundreds of billions of parameters and <strong>do not fit a single classroom GPU</strong>. Serving those needs a multi-GPU node or a hosted API, which becomes its own advanced unit rather than a day-one download.</p>
+      <p>Teaching point: because these all run <em>locally</em>, the usual "my data leaves the building" worry is moot — the weights execute on your machine and nothing phones home. The real things to vet on any model, regardless of origin, are training-data provenance, built-in behavior, and license. Students should learn to read those off the model card.</p>
+    </div>
+    <div class="cert-line"><strong>Cert alignment:</strong> concepts here feed directly into <strong>NVIDIA NCA-GENL</strong> (see Level 2). No dedicated cert for local inference exists.</div>
+  </div>
+
+  <!-- LEVEL 2 -->
+  <div class="level">
+    <div class="level-head">
+      <span class="level-badge">Level 2</span>
+      <h3 class="level-title">Serve — like an organization would</h3>
+    </div>
+    <p class="level-tag">From "runs on my machine" to "serves a whole class"</p>
+    <p>Ollama is the on-ramp; it is not how a company serves a model to hundreds of users. Here students step up to a production serving engine and meet the ideas that separate a hobby from a job: concurrency, throughput, and packaging. This is also where Linux and networking stop being background and become the actual work.</p>
+    <h4>What students do</h4>
+    <ul>
+      <li>Serve a model with <strong>vLLM</strong> (high-throughput, OpenAI-compatible) — one model answering many students at once. <strong>TGI</strong> as the Hugging Face-native alternative.</li>
+      <li>Package a service in <strong>Docker</strong> — the single most transferable ops skill on this map.</li>
+      <li>Learn the networking that makes serving real: static IPs, ports, SSH into a headless box, a reverse proxy, and firewall basics.</li>
+    </ul>
+    <div class="pill-row">
+      <span class="pill">vLLM</span><span class="pill">TGI</span><span class="pill">Docker</span><span class="pill">Linux</span><span class="pill">SSH · ports · reverse proxy</span>
+    </div>
+    <div class="box warn">
+      <span class="label">If a Mac mini is in the mix</span>
+      <p>vLLM and TGI are built for NVIDIA GPUs — they're the serving path on the dedicated-GPU boxes, not on Apple Silicon. A <strong>Mac mini serves through Ollama, LM Studio, or Apple's own MLX</strong> (<code>mlx-lm</code>) framework instead, taking advantage of unified memory. That difference is a feature for the curriculum: students learn that "serve a model" means different engines on different hardware, and that the <em>OpenAI-compatible API</em> is what lets a Mac node and an NVIDIA node sit behind the same gateway in Level 3.</p>
+    </div>
+    <div class="cert-line"><strong>Cert alignment:</strong> <strong>NVIDIA NCA-GENL</strong> ($125, no prerequisites — the flagship on-target GenAI cert) for the concept layer; <strong>CompTIA Linux+</strong> and <strong>Network+</strong> for the infrastructure backbone (<strong>Tech+</strong> is the gentler on-ramp to those).</div>
+  </div>
+
+  <!-- LEVEL 3 -->
+  <div class="level">
+    <div class="level-head">
+      <span class="level-badge">Level 3</span>
+      <h3 class="level-title">Network — turn the lab into one service</h3>
+    </div>
+    <p class="level-tag">Ten boxes, one endpoint · where the hardware pays off</p>
+    <p>This is the level the lab was built for, and it's also where the honesty matters most. There are two very different things people mean by "networking computers for AI," and students should learn both while knowing which is which.</p>
+    <h4>The realistic pattern (this is how it's really done)</h4>
+    <p>Run one model per box, then put all the boxes behind a <strong>gateway</strong> — <strong>LiteLLM</strong> — which presents a single OpenAI-compatible endpoint, load-balances across the nodes, handles failover, issues API keys, and logs usage. This is "horizontal scaling of independent replicas," and it's exactly the AI-gateway pattern organizations run. <strong>nginx</strong> is the lower-level version and a great networking lesson.</p>
+    <h4>The distributed-inference experiments (great to teach, not to productionize)</h4>
+    <p>Splitting one large model <em>across</em> machines is genuinely educational and genuinely bandwidth-bound. On ordinary Ethernet these demonstrate the concept rather than beat a single good GPU:</p>
+    <ul>
+      <li><strong>vLLM</strong> tensor / pipeline parallelism (multi-node uses <strong>Ray</strong>) — wants fast interconnect to shine.</li>
+      <li><strong>llama.cpp RPC backend</strong> — works, and its own docs call it "proof-of-concept" and "insecure; never run on an open network." That warning is itself a teachable security moment.</li>
+      <li><strong>exo</strong> — active project, tuned toward Apple Silicon and Thunderbolt links. If a <strong>Mac mini</strong> joins the lab, exo becomes a genuinely good fit rather than a stretch — Apple Silicon is exactly the hardware it targets. On x86 Ethernet boxes, verify the current story before committing.</li>
+    </ul>
+    <h4>Optional advanced ops</h4>
+    <p>Stand up a lightweight Kubernetes cluster with <strong>k3s</strong> across the lab and deploy the serving stack onto it. Heavyweight, but a strong résumé skill and the natural bridge to the certification below.</p>
+    <div class="box warn">
+      <span class="label">Don't oversell the cluster</span>
+      <p>The primary, real-world pattern for a room of separate single-GPU desktops is <strong>one model per box + LiteLLM</strong>. Frame the "split a model across the lab" tools as experiments that teach distributed systems — not as the way to get more performance out of the room. Students who understand <em>why</em> will be ahead of most professionals.</p>
+    </div>
+    <div class="cert-line"><strong>Cert alignment:</strong> <strong>CNCF KCNA</strong> ($250, no prerequisites) for the Kubernetes/cluster layer; <strong>CompTIA Network+</strong> for the networking fundamentals.</div>
+  </div>
+
+  <!-- LEVEL 4 -->
+  <div class="level">
+    <div class="level-head">
+      <span class="level-badge">Level 4</span>
+      <h3 class="level-title">Extend — build tools with MCP</h3>
+    </div>
+    <p class="level-tag">Give the model hands · the "USB-C for AI tools" layer</p>
+    <p>A model that can only talk is limited. The Model Context Protocol is the open standard — introduced by Anthropic in late 2024 and now adopted across the major AI vendors — that lets any AI app use any tool you build. Students build their own MCP server, expose a couple of tools, and connect it to a host. A motivated student can finish a first working server in an afternoon.</p>
+    <h4>What students do</h4>
+    <ul>
+      <li>Follow the official "Build an MCP server" quickstart in <strong>Python</strong> or <strong>TypeScript</strong> (the two best-supported SDKs).</li>
+      <li>Work through the Hugging Face <strong>MCP Course</strong> (free completion certificate).</li>
+      <li>Drive their MCP tools from a <em>local</em> model via the OpenAI-compatible endpoint and an agent loop.</li>
+    </ul>
+    <div class="box info">
+      <span class="label">Honest limitation worth teaching</span>
+      <p>MCP standardizes the tool side, not the model side. The plumbing works with local models — but a small 7–8B model calls tools far less reliably than a frontier model. That gap is the lesson: it shows <em>why</em> larger, better-tuned models follow tool instructions more dependably.</p>
+    </div>
+    <div class="cert-line"><strong>Cert alignment:</strong> Hugging Face <strong>MCP Course</strong> completion certificate (free, unproctored — a shareable artifact, not an industry cert).</div>
+  </div>
+
+  <!-- LEVEL 5 -->
+  <div class="level">
+    <div class="level-head">
+      <span class="level-badge">Level 5</span>
+      <h3 class="level-title">Agents &amp; RAG — reason and retrieve</h3>
+    </div>
+    <p class="level-tag">Wire models into harnesses · chat with your own documents</p>
+    <p>Now the model becomes the engine inside a larger system. Students learn the agent-harness pattern on top of their local stack, and build the single most satisfying first project in this whole space: retrieval over their own documents.</p>
+    <h4>What students do</h4>
+    <ul>
+      <li>Use <strong>smolagents</strong> (open, local-first, deliberately minimal) or the <strong>OpenAI Agents SDK + LiteLLM</strong> to point a real harness at a local model.</li>
+      <li>Build a <strong>RAG</strong> pipeline: embeddings (via sentence-transformers or Ollama) → a vector store (<strong>Chroma</strong> is easiest; <strong>FAISS</strong> shows the internals) → retrieve → answer. Fully local, fully free.</li>
+      <li>Work the Hugging Face <strong>Agents Course</strong> (free certificate) and compare their local harness to a frontier one (Anthropic's <strong>Claude Agent SDK</strong>).</li>
+    </ul>
+    <div class="pill-row">
+      <span class="pill">smolagents</span><span class="pill">OpenAI Agents SDK</span><span class="pill">LiteLLM</span><span class="pill">Chroma / FAISS</span><span class="pill">Embeddings</span>
+    </div>
+    <div class="cert-line"><strong>Cert alignment:</strong> Hugging Face <strong>Agents Course</strong> certificate; concepts reinforce <strong>NVIDIA NCA-GENL</strong>.</div>
+  </div>
+
+  <!-- LEVEL 6 -->
+  <div class="level">
+    <div class="level-head">
+      <span class="level-badge">Level 6</span>
+      <h3 class="level-title">Build &amp; capstone — ship something real</h3>
+    </div>
+    <p class="level-tag">Vibe-code on the local stack · host it in the lab</p>
+    <p>Everything converges. Students build a genuine application on top of the models the lab serves — using AI-assisted "vibe coding" as an accelerator, while learning explicitly when to lean on it and when to read the generated code. The capstone is a networked, served, agentic system the lab actually hosts.</p>
+    <h4>What students do</h4>
+    <ul>
+      <li>Build with local-model-friendly AI coding tools — <strong>Cline</strong> or <strong>Continue</strong> (open-source, point at local models) — and compare to <strong>Cursor</strong> / cloud tools.</li>
+      <li>Ship a capstone that touches the full stack: a served model (Level 2), behind the gateway (Level 3), using an MCP tool they built (Level 4), inside an agent or RAG app (Level 5).</li>
+      <li>Assemble a portfolio and sit any targeted certifications.</li>
+    </ul>
+    <div class="box warn">
+      <span class="label">Vibe coding, taught honestly</span>
+      <p>The term comes from Andrej Karpathy (early 2025): describe intent in plain English, let the model generate, iterate — sometimes without reading the code closely. It is real and productive, and it is a double-edged sword for <em>learning</em>. Teach it as a skill with a switch: know when to vibe and when to read every line.</p>
+    </div>
+    <div class="cert-line"><strong>Cert alignment:</strong> capstone + portfolio is the credential here; students sit whichever certs fit their path (see the map below).</div>
+  </div>
+
+  <!-- CERT MAP -->
+  <h2 id="certs">Certification map</h2>
+  <p class="section-note">The blunt finding first, because it shapes everything: <strong>there is no dedicated industry certification for self-hosting and serving open-weight models or clustering them.</strong> That skill is certified only indirectly, as the sum of a GenAI-concepts cert, infrastructure certs, and an ops cert. Every credential below was verified against the vendor's own certification page in August 2026; treat costs as approximate and re-check before committing budget.</p>
+
+  <div class="box gap">
+    <span class="label">The genuine gap — say it to students plainly</span>
+    <p>No vendor sells a "Self-Hosted LLM Serving Engineer" badge. The résumé story is "I hold the GenAI-concepts cert (NVIDIA) <em>plus</em> the infrastructure and ops certs that make serving possible" — and, more convincingly, "here is the system I built and hosted." The portfolio is the real credential; the certs are supporting evidence.</p>
+  </div>
+
+  <h3>The on-target and accessible tier</h3>
+  <div class="tbl-scroll">
+  <table>
+    <thead><tr><th>Certification</th><th>Cost*</th><th>Level</th><th>HS fit</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Python Institute PCEP</strong><br>Entry-level Python (PCEP-30-02)</td><td>from $69</td><td>Entry, no prereqs</td><td class="fit-strong">Excellent — cheapest, best first cert</td></tr>
+      <tr><td><strong>NVIDIA NCA-GENL</strong><br>Generative AI LLMs, Associate</td><td>$125</td><td>Associate, no prereqs</td><td class="fit-strong">Strong — the flagship on-target GenAI cert</td></tr>
+      <tr><td><strong>AWS Certified AI Practitioner</strong> (AIF-C01)</td><td>$100</td><td>Foundational</td><td class="fit-strong">Good — concept anchor</td></tr>
+      <tr><td><strong>Microsoft Azure AI Fundamentals</strong> (AI-901)</td><td>~$99</td><td>Foundational</td><td class="fit-strong">Good — note: AI-900 was retired, use AI-901</td></tr>
+      <tr><td><strong>Google Cloud Generative AI Leader</strong></td><td>$99</td><td>Foundational</td><td class="fit-mid">OK — least technical, business-framed</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>The infrastructure &amp; ops tier (the real backbone)</h3>
+  <div class="tbl-scroll">
+  <table>
+    <thead><tr><th>Certification</th><th>Cost*</th><th>Level</th><th>HS fit</th></tr></thead>
+    <tbody>
+      <tr><td><strong>GitHub Foundations</strong> (GH-900)</td><td>Free for verified students</td><td>Beginner</td><td class="fit-strong">Excellent — validates version control &amp; GitHub; fee waived via GitHub Education</td></tr>
+      <tr><td><strong>CompTIA Tech+</strong> (FC0-U71)</td><td>~$139</td><td>Entry (successor to ITF+)</td><td class="fit-strong">Good — true beginner infra on-ramp</td></tr>
+      <tr><td><strong>CompTIA Network+</strong> (N10-009)</td><td>~$369</td><td>Core infrastructure</td><td class="fit-mid">Valuable but pricey — the "networking them" half</td></tr>
+      <tr><td><strong>CompTIA Linux+</strong> (XK0-006)</td><td>~$369</td><td>~12 mo. Linux experience</td><td class="fit-mid">Valuable but pricey — the "servers" half</td></tr>
+      <tr><td><strong>CNCF KCNA</strong><br>Kubernetes &amp; Cloud Native Associate</td><td>$250</td><td>Pre-professional, no prereqs</td><td class="fit-mid">For the clustering/ops layer (Level 3)</td></tr>
+      <tr><td><strong>Docker DCA</strong> (run by Mirantis)</td><td>$199</td><td>6–12 mo. experience</td><td class="fit-no">Skip — dated, vendor-adjacent; prefer KCNA</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>The free completion certificates (learning, not accreditation)</h3>
+  <p>Hugging Face issues free, unproctored completion certificates for its <strong>Agents</strong>, <strong>MCP</strong>, and <strong>Deep RL</strong> courses (and the newer smol-course). These are excellent hands-on learning plus a shareable LinkedIn artifact — call them completion certificates, not industry certifications. <strong>Note:</strong> the Hugging Face LLM Course does <em>not</em> currently issue a certificate, despite third-party pages implying otherwise.</p>
+
+  <p style="color:var(--muted);font-size:14.5px;">*Costs are US exam-voucher list prices at the time of research and move around; a few CompTIA/Microsoft figures came from secondary sources and are marked approximate. Verify on the vendor's store before quoting to students or budgeting.</p>
+
+  <!-- RESOURCE LIBRARY -->
+  <h2 id="library">Resource library</h2>
+  <p class="section-note">Every link verified against its primary source in August 2026. Grouped by the level where it first appears.</p>
+
+  <h3>Learning tracks (free, structured)</h3>
+  <ul>
+    <li><a href="https://huggingface.co/learn">Hugging Face — Learn hub</a> (index of all free courses)</li>
+    <li><a href="https://huggingface.co/learn/llm-course/chapter1/1">HF LLM Course</a> — Levels 0–1 (no certificate yet)</li>
+    <li><a href="https://huggingface.co/learn/mcp-course/en/unit1/introduction">HF MCP Course</a> — Level 4 (free certificate)</li>
+    <li><a href="https://huggingface.co/learn/agents-course/unit0/introduction">HF AI Agents Course</a> — Level 5 (free certificate)</li>
+    <li><a href="https://github.com/huggingface/education-toolkit">HF Education Toolkit</a> + <a href="https://huggingface.co/blog/education">Hugging Face for Education</a></li>
+  </ul>
+
+  <h3>Run &amp; serve (Levels 1–2)</h3>
+  <ul>
+    <li><a href="https://ollama.com">Ollama</a> · <a href="https://docs.ollama.com">docs</a> — easiest on-ramp; OpenAI-compatible API</li>
+    <li><a href="https://lmstudio.ai">LM Studio</a> — GUI alternative</li>
+    <li><a href="https://docs.vllm.ai">vLLM</a> · <a href="https://github.com/vllm-project/vllm">repo</a> — production serving</li>
+    <li><a href="https://huggingface.co/docs/text-generation-inference/en/index">Text Generation Inference (TGI)</a></li>
+    <li><a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a> — the engine + GGUF quantization (note: the active org is <code>ggml-org</code>)</li>
+    <li><a href="https://github.com/ml-explore/mlx-lm">MLX / mlx-lm</a> — Apple's framework for serving on Mac / Apple Silicon</li>
+    <li><a href="https://www.docker.com">Docker</a> — containers</li>
+    <li>Reasoning models that fit one GPU: <a href="https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B">DeepSeek-R1-Distill-Qwen-7B</a> · <a href="https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Llama-8B">DeepSeek-R1-Distill-Llama-8B</a> (check each card's license)</li>
+  </ul>
+
+  <h3>Network &amp; cluster (Level 3)</h3>
+  <ul>
+    <li><a href="https://www.litellm.ai">LiteLLM</a> · <a href="https://docs.litellm.ai/docs/proxy/load_balancing">load-balancing docs</a> — the realistic gateway pattern</li>
+    <li><a href="https://docs.vllm.ai/en/stable/serving/parallelism_scaling/">vLLM distributed inference</a> · <a href="https://docs.ray.io/en/latest/serve/llm/index.html">Ray Serve for LLMs</a></li>
+    <li><a href="https://github.com/ggml-org/llama.cpp/blob/master/tools/rpc/README.md">llama.cpp RPC backend</a> (proof-of-concept; read the security warning)</li>
+    <li><a href="https://github.com/exo-explore/exo">exo</a> — heterogeneous clustering (use the <code>exo-explore/exo</code> repo, not the archived one)</li>
+    <li><a href="https://docs.k3s.io/">k3s</a> — lightweight Kubernetes</li>
+  </ul>
+
+  <h3>Extend, agents &amp; build (Levels 4–6)</h3>
+  <ul>
+    <li><a href="https://modelcontextprotocol.io">Model Context Protocol</a> · <a href="https://modelcontextprotocol.io/docs/develop/build-server">Build an MCP server</a> · <a href="https://github.com/modelcontextprotocol/quickstart-resources">quickstart code</a></li>
+    <li><a href="https://github.com/huggingface/smolagents">smolagents</a> — minimal, local-first agents</li>
+    <li><a href="https://openai.github.io/openai-agents-python/">OpenAI Agents SDK</a> (drives local models via LiteLLM)</li>
+    <li><a href="https://platform.claude.com/docs/en/agent-sdk/overview">Claude Agent SDK</a> — frontier harness for comparison</li>
+    <li><a href="https://www.trychroma.com">Chroma</a> · <a href="https://github.com/facebookresearch/faiss">FAISS</a> — vector stores for RAG</li>
+    <li>AI coding tools: Cline / Continue (open-source, local-model friendly) · Cursor (cloud)</li>
+  </ul>
+
+  <h3>Certification pages (verified)</h3>
+  <ul>
+    <li><a href="https://pythoninstitute.org/pcep">Python Institute PCEP</a></li>
+    <li><a href="https://www.nvidia.com/en-us/learn/certification/generative-ai-llm-associate/">NVIDIA NCA-GENL</a></li>
+    <li><a href="https://aws.amazon.com/certification/certified-ai-practitioner/">AWS AI Practitioner</a> · <a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-fundamentals/">Azure AI-901</a> · <a href="https://cloud.google.com/learn/certification/generative-ai-leader">Google GenAI Leader</a></li>
+    <li><a href="https://www.comptia.org/en-us/certifications/linux/">CompTIA Linux+</a> · Network+ · Tech+</li>
+    <li><a href="https://www.cncf.io/training/certification/kcna/">CNCF KCNA</a></li>
+    <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/github-foundations/">GitHub Foundations (GH-900)</a> — free for verified students</li>
+  </ul>
+
+  <!-- SETUP NOTES -->
+  <h2 id="setup">Teacher &amp; lab setup notes</h2>
+
+  <h4>Before day one</h4>
+  <p>Get each machine to a known baseline: Linux (or WSL on Windows), current NVIDIA drivers, Docker, and Python. Confirm the exact VRAM on each GPU — it sets the ceiling on model size. Have every student create a free Hugging Face account in advance; if you plan to use gated Llama models, walk the license-acceptance step early because approval can take time. Lean on ungated Apache-2.0 models (Qwen, Gemma, gpt-oss) to avoid that bottleneck entirely.</p>
+
+  <p><strong>Mixed hardware is fine — plan for it.</strong> If the lab combines NVIDIA-GPU desktops with one or more Apple Silicon <strong>Mac minis</strong>, treat the difference as curriculum, not friction. The NVIDIA boxes carry the vLLM/TGI production-serving story; the Mac serves through Ollama, LM Studio, or Apple's <strong>MLX</strong>. The unifying idea is the OpenAI-compatible API — every node, whatever its engine, exposes the same interface, so they all sit behind one LiteLLM gateway in Level 3. A Mac mini also turns the exo clustering experiment from a stretch into a natural fit, since exo targets Apple Silicon directly.</p>
+
+  <h4>Security is part of the curriculum, not a footnote</h4>
+  <p>Two teachable moments are built into the tools. The llama.cpp RPC backend explicitly warns never to run it on an open network — a perfect entry point for firewall, network-isolation, and "why does this matter" conversations. And the LiteLLM gateway issues API keys, which makes access control concrete. Keep the lab on an isolated segment; treat the security posture as something students design, not something IT hands them.</p>
+
+  <h4>Pilot shape → course shape</h4>
+  <p>As a "little bet," this runs cleanly as a club or independent study: everyone through Level 0–1 together, then students climb at their own pace with the modules as their guide. When it becomes formal CS courses, the seven levels map naturally onto units — Levels 0–2 as an introductory course, Levels 3–4 as an intermediate systems course, Levels 5–6 as an applied/capstone course. The certification map gives each course a concrete external credential to point at.</p>
+
+  <!-- HONEST CAVEATS -->
+  <h2 id="honest">Honest caveats &amp; what to re-check</h2>
+  <p class="section-note">This field moves monthly. A few things in here will drift, and it's better to name them than to let a student hit a dead link. Re-verify these at the start of each term:</p>
+  <ul>
+    <li><strong>Model versions.</strong> The specific "best small model" (exact Qwen / Gemma / Phi / Mistral release) changes constantly. The families and licenses are stable; pin the exact version the week you teach.</li>
+    <li><strong>MCP spec version.</strong> A large revision landed in mid-2026; confirm the current spec version on the official site before building materials around it.</li>
+    <li><strong>Agent frameworks.</strong> LangChain/LangGraph and Microsoft's AutoGen are changing fast (AutoGen is mid-reorg). smolagents and the OpenAI Agents SDK are the steadier bets for teaching; pin versions in any handout.</li>
+    <li><strong>Certification details.</strong> Exam codes and prices shift (Azure already moved AI-900 → AI-901). Confirm on the vendor store before budgeting or printing.</li>
+    <li><strong>Clustering tools.</strong> exo and the llama.cpp RPC backend evolve weekly; verify hardware support and status before a lab session depends on them.</li>
+  </ul>
+
+  <div class="box good">
+    <span class="label">What's solid</span>
+    <p>The <em>shape</em> of this progression is stable even as the tools churn: run → serve → network → extend → agents → build is how the real work is structured, and the OpenAI-compatible API is the through-line that keeps local models portable across every tool a student will meet. Teach the shape; swap the specific tools as they change.</p>
+  </div>
+
+  <p class="foot">AI Infrastructure Lab — Learning Progression &amp; Resource Map · Working draft v1 · South Fayette Township School District. Backbone document; the student-facing self-directed modules are a companion. All tools and certifications verified against primary sources, August 2026.</p>
+
+</div>
+</body>
+</html>

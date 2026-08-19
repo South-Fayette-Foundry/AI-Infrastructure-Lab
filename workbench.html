@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Workbench — Set Up Like an Engineer</title>
+<style>
+  :root{
+    --ink:#1a1d24;--ink-soft:#3d4453;--muted:#6b7280;--line:#e4e7ec;
+    --bg:#fbfbfa;--card:#ffffff;--accent:#0e7a63;--accent2:#1f5f8b;
+    --accent-soft:#e6f3ef;--warn:#8a5a00;--warn-soft:#fff6e6;
+    --good:#2f6f4f;--good-soft:#e9f4ee;--radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:19px;line-height:1.65;letter-spacing:0.1px;}
+  .wrap{max-width:840px;margin:0 auto;padding:0 22px 120px;}
+  header.top{max-width:840px;margin:0 auto;padding:64px 22px 20px;}
+  .kicker{text-transform:uppercase;letter-spacing:2.5px;font-size:13px;font-weight:700;color:var(--accent);margin:0 0 14px;}
+  h1{font-size:41px;line-height:1.12;margin:0 0 18px;font-weight:800;letter-spacing:-0.5px;}
+  .lede{font-size:21px;line-height:1.55;color:var(--ink-soft);margin:0;max-width:47ch;}
+  .meta{color:var(--muted);font-size:15px;margin-top:26px;border-top:1px solid var(--line);padding-top:18px;}
+  h2{font-size:29px;line-height:1.2;margin:60px 0 8px;font-weight:800;letter-spacing:-0.3px;padding-top:20px;border-top:2px solid var(--ink);}
+  h3{font-size:22px;margin:34px 0 6px;font-weight:750;}
+  h4{font-size:15px;margin:22px 0 6px;font-weight:800;text-transform:uppercase;letter-spacing:1.1px;color:var(--muted);}
+  p{margin:14px 0;}
+  a{color:var(--accent2);text-decoration:none;border-bottom:1px solid rgba(31,95,139,0.3);}
+  a:hover{border-bottom-color:var(--accent2);}
+  .section-note{color:var(--ink-soft);max-width:62ch;}
+  ul,ol{padding-left:24px;margin:14px 0;}
+  li{margin:9px 0;}
+  strong{font-weight:700;}
+  code{background:#eef0f3;border-radius:5px;padding:2px 7px;font-size:0.85em;font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;color:#0f3a56;}
+
+  .layer{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px 30px;margin:20px 0;box-shadow:0 1px 3px rgba(16,24,40,0.04);}
+  .layer-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;}
+  .layer-num{display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:#fff;font-weight:800;font-size:14px;border-radius:8px;padding:4px 12px;white-space:nowrap;}
+  .layer-title{font-size:21px;font-weight:770;margin:0;}
+  .layer-tag{color:var(--muted);font-size:14.5px;font-weight:600;margin:3px 0 14px;}
+  .pill-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+  .pill{background:#eef4f2;border:1px solid #d5e5e0;border-radius:8px;padding:5px 11px;font-size:14px;color:#20514a;font-weight:600;}
+
+  .box{border-radius:12px;padding:16px 20px;margin:20px 0;font-size:16.5px;line-height:1.55;}
+  .box .label{font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:12.5px;display:block;margin-bottom:5px;}
+  .box.good{background:var(--good-soft);border:1px solid #c6e3d2;color:#1f5138;}
+  .box.good .label{color:var(--good);}
+  .box.warn{background:var(--warn-soft);border:1px solid #f0dcae;color:#5c3d00;}
+  .box.warn .label{color:var(--warn);}
+  .box.info{background:var(--accent-soft);border:1px solid #cfe6df;color:#0c5344;}
+  .box.info .label{color:var(--accent);}
+
+  /* ecosystem map */
+  .map{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;margin:22px 0;}
+  .map-row{display:flex;align-items:stretch;gap:14px;flex-wrap:wrap;justify-content:center;}
+  .node{flex:1 1 200px;min-width:180px;border:2px solid var(--accent);border-radius:12px;padding:14px 16px;background:var(--accent-soft);}
+  .node h5{margin:0 0 4px;font-size:16px;font-weight:800;color:#0c5344;}
+  .node p{margin:0;font-size:14.5px;color:#33474; color:#3d4453;line-height:1.45;}
+  .map-arrow{text-align:center;color:var(--accent);font-weight:800;font-size:15px;letter-spacing:1px;margin:12px 0;text-transform:uppercase;}
+  .node.remote{border-color:var(--accent2);background:#eaf2f8;}
+  .node.remote h5{color:#123f5c;}
+
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:16px 0;}
+  .step{background:#0e7a63;color:#fff;border-radius:8px;padding:6px 12px;font-size:14.5px;font-weight:700;}
+  .arw{color:var(--muted);font-weight:800;}
+
+  .tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:20px 0;border-radius:12px;border:1px solid var(--line);}
+  table{border-collapse:collapse;width:100%;font-size:15.5px;background:var(--card);min-width:560px;}
+  th,td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{background:#f3f5f8;font-weight:700;font-size:13.5px;text-transform:uppercase;letter-spacing:0.6px;color:var(--ink-soft);}
+  tr:last-child td{border-bottom:none;}
+  td strong{white-space:nowrap;}
+
+  .prove{border:2px solid var(--good);border-radius:12px;padding:16px 20px;margin:22px 0;background:#f4faf6;}
+  .prove .label{font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:12.5px;color:var(--good);display:block;margin-bottom:6px;}
+  .cert-line{margin-top:16px;padding:12px 15px;background:var(--accent-soft);border-radius:10px;font-size:15.5px;color:#0c5344;}
+
+  @media(max-width:620px){body{font-size:18px;}h1{font-size:32px;}h2{font-size:24px;}.layer{padding:24px 20px;}header.top{padding-top:44px;}}
+  .foot{margin-top:66px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:14px;line-height:1.6;}
+  .foot a{color:var(--muted);}
+</style>
+</head>
+<body>
+<nav style="background:#111827;padding:11px 20px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:9999;font-size:14px;">
+<a href="index.html" style="color:#fff;text-decoration:none;font-weight:800;">AI Infrastructure Lab</a>
+<a href="index.html" style="color:#cbd5e1;text-decoration:none;">Hub</a>
+<a href="progression.html" style="color:#cbd5e1;text-decoration:none;">Progression</a>
+<a href="modules.html" style="color:#cbd5e1;text-decoration:none;">Modules</a>
+<a href="workbench.html" style="color:#cbd5e1;text-decoration:none;">Workbench</a>
+<a href="documentation.html" style="color:#cbd5e1;text-decoration:none;">Docs</a>
+</nav>
+
+<header class="top">
+  <p class="kicker">South Fayette Foundry · AI Infrastructure Lab · Foundations</p>
+  <h1>The Workbench</h1>
+  <p class="lede">Before you build with the tools, you set up the shop the way professionals do — and you learn how the pieces fit into one ecosystem, not a pile of separate apps.</p>
+  <p class="meta">This is the second foundation, alongside <em>Build in the Open</em> (process &amp; documentation). Together they're the "how professionals actually work" layer that sits under every technical module. The specific tools here will drift; the habit underneath won't — <strong>work in branches, review before you merge, keep your environment reproducible, and automate the boring checks.</strong> Every tool and offer below was verified against its official source in August 2026; the fast-moving ones are flagged in place.</p>
+</header>
+
+<div class="wrap">
+
+  <p>Professionals don't just "write code." They work inside a system: an editor and a terminal on their machine, a version-control tool tracking every change, a shared platform where a team collaborates and reviews each other's work, reproducible environments so software runs the same everywhere, and automation that checks the work without anyone having to remember to. None of these is the point on its own — together they're how real software gets built without chaos. This module is about that whole picture, and about building the habits early so they're second nature by the time you're serving models and shipping a capstone.</p>
+
+  <h2 id="map">How it all fits together</h2>
+  <p class="section-note">Here's the mental model to carry through everything else. Your machine is where you work; git tracks your changes locally; GitHub is the shared home where a team collaborates; and reproducibility and automation keep the whole thing sane. Read it left to right, then top to bottom.</p>
+
+  <div class="map">
+    <div class="map-row">
+      <div class="node">
+        <h5>Your machine</h5>
+        <p>Editor (VS Code) + terminal + a language (Python) + an isolated environment per project.</p>
+      </div>
+      <div class="node">
+        <h5>git (local)</h5>
+        <p>The version-control tool. Records every change as a save-point you can return to.</p>
+      </div>
+    </div>
+    <div class="map-arrow">↓ push / pull ↓</div>
+    <div class="map-row">
+      <div class="node remote">
+        <h5>GitHub (remote)</h5>
+        <p>The shared home for your repo: pull requests, code review, Issues, README, releases.</p>
+      </div>
+      <div class="node remote">
+        <h5>Reproducibility</h5>
+        <p>Environments &amp; containers (and Codespaces) so it runs the same for everyone.</p>
+      </div>
+      <div class="node remote">
+        <h5>Automation (CI/CD)</h5>
+        <p>GitHub Actions runs your tests and checks automatically on every change.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="box info">
+    <span class="label">The one distinction people mix up</span>
+    <p><strong>git</strong> is the tool that tracks versions of your code, running <em>on your computer</em>. <strong>GitHub</strong> is a website that hosts your git projects <em>in the cloud</em> and adds collaboration on top — reviews, issues, automation. You can use git with no GitHub at all. Most teams use both. Keep the two words straight and half the confusion disappears.</p>
+  </div>
+
+  <h2 id="layers">The four layers</h2>
+
+  <!-- LAYER 1 -->
+  <div class="layer">
+    <div class="layer-head"><span class="layer-num">Layer 1</span><h3 class="layer-title">The workbench</h3></div>
+    <p class="layer-tag">your editor, your terminal — the multiplier skills</p>
+    <p>Everything starts with being comfortable at the keyboard. A real code editor — <a href="https://code.visualstudio.com/docs">VS Code</a>, free, with an enormous library of extensions — and a <strong>terminal</strong>, the text interface where you drive git, install packages, and run your programs. Being fluent in the terminal is the single biggest multiplier in this whole module: it's how professionals move fast, and it's what makes every other tool here usable.</p>
+    <div class="pill-row">
+      <span class="pill">VS Code</span><span class="pill">Extensions</span><span class="pill">Terminal / shell</span>
+    </div>
+    <div class="box good">
+      <span class="label">Learn this first</span>
+      <p>Get comfortable navigating folders, running a Python file, and reading errors in the terminal before anything else. It feels slow for a week and then it's a superpower.</p>
+    </div>
+  </div>
+
+  <!-- LAYER 2 -->
+  <div class="layer">
+    <div class="layer-head"><span class="layer-num">Layer 2</span><h3 class="layer-title">Version control &amp; GitHub — the core habit</h3></div>
+    <p class="layer-tag">the loop every engineer runs every day</p>
+    <p>This is the most important thing in the module. <a href="https://docs.github.com/en/get-started/using-github/github-flow">GitHub Flow</a> is the standard team workflow, and it's a loop you'll run constantly:</p>
+    <div class="flow">
+      <span class="step">branch</span><span class="arw">→</span>
+      <span class="step">commit</span><span class="arw">→</span>
+      <span class="step">push</span><span class="arw">→</span>
+      <span class="step">pull request</span><span class="arw">→</span>
+      <span class="step">review</span><span class="arw">→</span>
+      <span class="step">merge</span>
+    </div>
+    <p>You make a <strong>branch</strong> (a safe copy to work in), <strong>commit</strong> your changes as save-points with clear messages, <strong>push</strong> them to GitHub, open a <strong>pull request</strong> (PR) proposing your work, get it <strong>reviewed</strong>, then <strong>merge</strong> it in. Around that loop sit the rest of GitHub: the <strong>repository</strong> (your project's home), <strong>Issues</strong> (the to-do and bug list), the <strong>README</strong> (the front door — you already met this in <em>Build in the Open</em>), <strong>Releases</strong>, and <strong>fork</strong> (your own copy of someone else's project).</p>
+    <div class="pill-row">
+      <span class="pill">repo</span><span class="pill">branch</span><span class="pill">commit</span><span class="pill">push / pull</span><span class="pill">pull request</span><span class="pill">code review</span><span class="pill">merge</span><span class="pill">Issues</span><span class="pill">fork</span>
+    </div>
+    <div class="box info">
+      <span class="label">This is where the two foundations meet</span>
+      <p>Your documentation lives <em>inside</em> the repo. The README, the design doc, the Architecture Decision Records from <em>Build in the Open</em> — they're files in your GitHub project, and your commit history becomes the automatic, time-stamped record of your process. The workbench and the documentation habit are the same habit seen from two sides.</p>
+    </div>
+    <div class="cert-line"><strong>Cert alignment:</strong> <strong>GitHub Foundations</strong> (exam GH-900, beginner-level) — and the exam fee is <strong>waived for students verified through GitHub Education</strong>. A genuinely achievable, free-for-students credential that validates exactly this layer.</div>
+  </div>
+
+  <!-- LAYER 3 -->
+  <div class="layer">
+    <div class="layer-head"><span class="layer-num">Layer 3</span><h3 class="layer-title">Reproducible environments</h3></div>
+    <p class="layer-tag">defeating "but it works on my machine"</p>
+    <p>The oldest bug in software is "it runs for me but not for you." Professionals solve it by making the environment itself reproducible. Three levels, from simple to powerful:</p>
+    <ul>
+      <li><strong>Virtual environments</strong> — an isolated Python setup per project so one project's packages don't break another's. The built-in baseline is <code>venv</code>; understand that concept first.</li>
+      <li><strong><a href="https://docs.astral.sh/uv/">uv</a></strong> — the modern, very fast tool (from Astral) that manages packages, environments, and even Python versions in one place. It's what a large and growing share of professionals reach for now. Learn the <code>venv</code> idea, then use uv as the fast way to live it.</li>
+      <li><strong>Containers &amp; <a href="https://containers.dev/">dev containers</a></strong> — Docker packages your whole environment so it runs identically anywhere; a <code>devcontainer.json</code> describes a ready-to-code environment as a file. This is the professional end-state (you'll meet Docker again when you serve models in Module 2).</li>
+    </ul>
+    <div class="pill-row">
+      <span class="pill">venv</span><span class="pill">uv</span><span class="pill">Docker</span><span class="pill">dev containers</span>
+    </div>
+    <div class="box good">
+      <span class="label">The zero-setup on-ramp</span>
+      <p><a href="https://github.com/features/codespaces/">GitHub Codespaces</a> gives every student an identical dev environment <em>in the browser</em> — no local install, no "my laptop is different" chaos. Individuals get a free monthly allowance (currently 120 core-hours + 15&nbsp;GB). Consider starting the whole class in Codespaces on day one, then peeling back the layers to show what's underneath.</p>
+    </div>
+  </div>
+
+  <!-- LAYER 4 -->
+  <div class="layer">
+    <div class="layer-head"><span class="layer-num">Layer 4</span><h3 class="layer-title">Automation — CI/CD</h3></div>
+    <p class="layer-tag">let the robots check the boring stuff</p>
+    <p><strong>CI/CD</strong> stands for continuous integration / continuous delivery — the practice of automatically building, testing, and shipping your code every time it changes. Since you're already on GitHub, the natural first tool is <a href="https://docs.github.com/en/actions/about-github-actions/understanding-github-actions">GitHub Actions</a>, built right in. A student's first taste is a tiny workflow that <strong>runs your tests automatically on every push</strong> — so a broken change gets caught before it's merged, not after.</p>
+    <div class="pill-row">
+      <span class="pill">CI/CD</span><span class="pill">GitHub Actions</span><span class="pill">automated tests</span>
+    </div>
+    <div class="box info">
+      <span class="label">Second, not first</span>
+      <p>Don't rush here. Automation only makes sense once you have a repo worth testing. Introduce it after the git→GitHub loop is a habit — then a single "run my tests on every push" workflow is a satisfying, real taste of how professional teams keep quality up.</p>
+    </div>
+  </div>
+
+  <!-- FREE TOOLKIT -->
+  <h2 id="toolkit">The free student toolkit</h2>
+  <p class="section-note">A lot of professional tooling is free for verified students — this matters for a pilot budget. Verify current offers before you build a lesson around any one of them; these change often.</p>
+  <ul>
+    <li><strong><a href="https://education.github.com/pack">GitHub Student Developer Pack</a></strong> — free for students verified through GitHub Education. Bundles GitHub Pro, cloud credits (e.g., Azure), free professional IDEs (JetBrains), and more. The single best free-tooling resource for the pilot.</li>
+    <li><strong>GitHub Codespaces</strong> — free monthly allowance for individuals (120 core-hours + 15&nbsp;GB), on top of anything in the Pack.</li>
+    <li><strong>GitHub Copilot</strong> — a general free tier exists (currently ~2,000 completions/month), and verified students have historically had access to the full plan at no cost. <em>Flag: the student-plan signup was showing as "temporarily paused" at time of writing — verify live before relying on it, and treat Copilot as a helper that rides behind the fundamentals, never a replacement for them.</em></li>
+  </ul>
+
+  <!-- SEQUENCE -->
+  <h2 id="sequence">What to learn first, and how it threads through the lab</h2>
+  <p class="section-note">Resist tool-collecting. The habit is the point; the tools serve it. Rough order of priority:</p>
+  <div class="tbl-scroll">
+  <table>
+    <thead><tr><th>Priority</th><th>What</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1 · Learn first</strong></td><td>The git → GitHub loop (GitHub Flow) + terminal fluency + VS Code</td><td>The core daily habit of every engineer; everything else scaffolds around it</td></tr>
+      <tr><td><strong>2 · Learn first</strong></td><td>Isolated environments: <code>venv</code> concept, then <code>uv</code></td><td>The instinct that every project gets its own clean, reproducible setup</td></tr>
+      <tr><td><strong>3 · Day-one shortcut</strong></td><td>GitHub Codespaces</td><td>Removes setup friction so nobody's blocked before they understand the layers</td></tr>
+      <tr><td><strong>4 · Second</strong></td><td>GitHub Actions / CI/CD</td><td>Introduce once there's a repo worth testing; a real taste of automation</td></tr>
+      <tr><td><strong>5 · Know it exists</strong></td><td>Hand-writing Docker / dev containers, Copilot, alternative tools</td><td>Vital concepts, but let Codespaces expose them painlessly first</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Threading it through the seven modules</h3>
+  <p>Like the documentation studio, this isn't a one-and-done. It becomes how you work in every module:</p>
+  <ul>
+    <li><strong>Module 0:</strong> set up your workbench (or open a Codespace), create your first repository, and put your documentation folder inside it.</li>
+    <li><strong>Module 1:</strong> commit your model-running scripts with real messages; your Decision Log is now version-controlled.</li>
+    <li><strong>Module 2:</strong> do your Docker/serving work on a <em>branch</em> and open a pull request — even if you're reviewing your own. Pin your Python setup with <code>uv</code>.</li>
+    <li><strong>Modules 3–5:</strong> each new piece (gateway config, your MCP server, the RAG app) is a branch → PR → merge, with the README and ADRs updated in the same repo.</li>
+    <li><strong>Module 6:</strong> the capstone lives in a clean, well-structured repository with a real README, a GitHub Actions workflow running basic checks, and a commit history that <em>is</em> the story of how you built it.</li>
+  </ul>
+
+  <div class="prove">
+    <span class="label">Prove it — the workbench checkpoint</span>
+    Before Module 1, create a GitHub repository for your lab work, make it your first branch, add a README and your documentation-template folder, commit with a clear message, push it, and open a pull request. When you can run that loop without looking it up, you've got the habit that carries the rest of the year.
+  </div>
+
+  <div class="box warn">
+    <span class="label">Re-verify before each term (fast-moving)</span>
+    <p>Copilot's free/student terms change frequently (student signups were paused at writing). GitHub certifications now run through Microsoft's credentialing system (exam GH-900) and pricing is region-based, though the student fee waiver is the headline. And <code>uv</code>'s rise is recent — confirm it's still the professional default when you teach. The <em>habits</em> in this module are stable; the specific offers and tools are what drift.</p>
+  </div>
+
+  <div class="foot">
+    <p><strong>Sources</strong> (verified August 2026): <a href="https://docs.github.com/en/get-started/using-github/github-flow">GitHub Flow</a> · <a href="https://education.github.com/pack">Student Developer Pack</a> · <a href="https://learn.microsoft.com/en-us/credentials/certifications/github-foundations/">GitHub Foundations (GH-900)</a> · <a href="https://github.com/features/copilot/plans">Copilot plans</a> · <a href="https://github.com/features/codespaces/">Codespaces</a> · <a href="https://code.visualstudio.com/docs">VS Code</a> · <a href="https://docs.astral.sh/uv/">uv (Astral)</a> · <a href="https://docs.github.com/en/actions/about-github-actions/understanding-github-actions">GitHub Actions</a> · <a href="https://containers.dev/">Dev Containers spec</a>. Flags: Copilot student signups shown paused; GitHub cert delivery moved to Microsoft/Pearson VUE; uv adoption is recent — re-verify each term.</p>
+    <p>The Workbench — Set Up Like an Engineer · Working draft v1 · South Fayette Township School District. One of two foundations (with <em>Build in the Open</em>) beneath the seven technical modules.</p>
+  </div>
+
+</div>
+</body>
+</html>
